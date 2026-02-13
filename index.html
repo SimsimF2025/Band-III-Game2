@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Band III Vocab Master</title>
+    <title>Band III Vocab Master | Professional Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        :root {
+            --glass: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: linear-gradient(135deg, #4338ca 0%, #6d28d9 50%, #7e22ce 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
         .arabic { font-family: 'Cairo', sans-serif; }
+        
         .perspective-1000 { perspective: 1000px; }
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
         }
         .card-flipped { transform: rotateY(180deg); }
@@ -27,33 +37,44 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 1rem;
-            padding: 1rem;
+            border-radius: 1.5rem;
+            padding: 1.25rem;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
         }
-        .card-back { transform: rotateY(180deg); }
+        .card-front {
+            background: var(--glass);
+            border: 2px solid white;
+            color: #4338ca;
+        }
+        .card-back { 
+            transform: rotateY(180deg);
+            background: #ffffff;
+            border: 3px solid #4338ca;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-anim { animation: float 4s ease-in-out infinite; }
+
         .spinner {
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top: 2px solid #fff;
-            width: 18px;
-            height: 18px;
+            border-top: 3px solid #fff;
+            width: 24px;
+            height: 24px;
             animation: spin 1s linear infinite;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 1.2rem;
-            padding-right: 3rem !important;
-        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
+<body class="text-slate-900">
     <div id="root"></div>
 
     <script type="importmap">
@@ -84,12 +105,7 @@
                 { id: 107, en: "approach", ar: "نهج", def: "Method or way of dealing with something", sentence: "We need a new ___ to solve this problem." },
                 { id: 108, en: "average", ar: "معدل", def: "Ordinary or usual", sentence: "The ___ student spends two hours on homework." },
                 { id: 109, en: "available", ar: "متاح", def: "Able to be used or obtained", sentence: "Is there any water ___ for the guests?" },
-                { id: 110, en: "benefit", ar: "فائدة", def: "An advantage or profit", sentence: "Regular exercise is a major ___ to your health." },
-                { id: 111, en: "block", ar: "كتلة", def: "Solid piece of hard material", sentence: "He sat on a large ___ of stone." },
-                { id: 112, en: "brief", ar: "مختصر", def: "Lasting a short time", sentence: "The meeting was very ___, lasting only ten minutes." },
-                { id: 113, en: "calculate", ar: "يحسب", def: "Determine mathematically", sentence: "We need to ___ the total cost before buying." },
-                { id: 114, en: "campaign", ar: "حملة", def: "Organized course of action", sentence: "The political ___ lasted for several months." },
-                { id: 115, en: "capital", ar: "عاصمة", def: "Most important city of a country", sentence: "Paris is the ___ of France." }
+                { id: 110, en: "benefit", ar: "فائدة", def: "An advantage or profit", sentence: "Regular exercise is a major ___ to your health." }
             ],
             B: [
                 { id: 201, en: "challenge", ar: "تحدي", def: "Something needing great effort", sentence: "Climbing that mountain was a huge ___." },
@@ -97,68 +113,42 @@
                 { id: 203, en: "circumstance", ar: "ظرف", def: "Fact or condition connected to an event", sentence: "Under no ___ should you open that door." },
                 { id: 204, en: "collection", ar: "مجموعة", def: "Group of things gathered together", sentence: "He has a large ___ of old coins." },
                 { id: 205, en: "combine", ar: "يدمج", def: "Join or merge to form a single unit", sentence: "You should ___ the flour and sugar together." },
-                { id: 206, en: "common", ar: "شائع", def: "Occurring, found, or done often", sentence: "Colds are more ___ in the winter." },
-                { id: 207, en: "compete", ar: "يتنافس", def: "Strive to gain or win something", sentence: "Athletes from 20 countries will ___ in the race." },
-                { id: 208, en: "complex", ar: "معقد", def: "Consisting of many different parts", sentence: "The brain is a very ___ organ." },
-                { id: 209, en: "conclusion", ar: "استنتاج", def: "The end or finish of an event", sentence: "In ___, I would like to thank you for coming." },
-                { id: 210, en: "confirm", ar: "يؤكد", def: "Establish the truth or correctness", sentence: "Please ___ your reservation by email." },
-                { id: 211, en: "consequence", ar: "نتيجة", def: "Result or effect of an action", sentence: "Every action has a natural ___." },
-                { id: 212, en: "considerable", ar: "كبير", def: "Great in size, amount, or extent", sentence: "She spent a ___ amount of time on the project." },
-                { id: 213, en: "constant", ar: "ثابت", def: "Occurring continuously", sentence: "The baby needs ___ attention." },
-                { id: 214, en: "contact", ar: "اتصال", def: "Communicating or meeting", sentence: "We stayed in ___ after moving away." },
-                { id: 215, en: "contain", ar: "يحتوي", def: "Have or hold someone or something", sentence: "This box should ___ all your toys." }
+                { id: 206, en: "community", ar: "مجتمع", def: "Group of people living in the same place", sentence: "The local ___ joined forces to clean the park." },
+                { id: 207, en: "completely", ar: "تماماً", def: "Totally or utterly", sentence: "I forgot about the meeting ___." },
+                { id: 208, en: "complex", ar: "معقد", def: "Consisting of many different parts", sentence: "It was a very ___ problem to solve." },
+                { id: 209, en: "condition", ar: "حالة", def: "The state of something", sentence: "The car is in excellent ___." },
+                { id: 210, en: "consider", ar: "يعتبر", def: "Think carefully about something", sentence: "Please ___ my proposal before deciding." }
             ],
             C: [
-                { id: 301, en: "creative", ar: "مبدع", def: "Using imagination to create", sentence: "She is a very ___ artist." },
-                { id: 302, en: "criticism", ar: "نقد", def: "Expression of disapproval", sentence: "The movie received a lot of ___ from the press." },
-                { id: 303, en: "current", ar: "حالي", def: "Belonging to the present time", sentence: "What is your ___ address?" },
-                { id: 304, en: "decrease", ar: "ينقص", def: "Make or become smaller", sentence: "The number of smokers began to ___." },
-                { id: 305, en: "delay", ar: "تأجيل", def: "Make someone or something late", sentence: "The rain caused a long ___ in the flight." },
-                { id: 306, en: "deliberate", ar: "متعمد", def: "Done consciously and intentionally", sentence: "It was a ___ attempt to hurt my feelings." },
-                { id: 307, en: "demonstrate", ar: "يوضح", def: "Show clearly by giving proof", sentence: "Let me ___ how this machine works." },
-                { id: 308, en: "design", ar: "تصميم", def: "A plan or drawing produced to show look", sentence: "I like the ___ of your new house." },
-                { id: 309, en: "despite", ar: "على الرغم من", def: "Without being affected by", sentence: "We went out ___ the heavy rain." },
-                { id: 310, en: "detail", ar: "تفصيل", def: "Individual fact or item", sentence: "The painting is full of intricate ___." },
-                { id: 311, en: "develop", ar: "يطور", def: "Grow or cause to grow", sentence: "Exercise helps you ___ strong muscles." },
-                { id: 312, en: "device", ar: "جهاز", def: "Thing made for a particular purpose", sentence: "A smartphone is a multifunctional ___." },
-                { id: 313, en: "difference", ar: "اختلاف", def: "Way in which things are not same", sentence: "What is the ___ between these two products?" },
-                { id: 314, en: "difficulty", ar: "صعوبة", def: "The state of being hard to do", sentence: "I had some ___ understanding the instructions." },
-                { id: 315, en: "direct", ar: "مباشر", def: "Extending in a straight line", sentence: "Is there a ___ train to the city center?" }
+                { id: 301, en: "concept", ar: "مفهوم", def: "An abstract idea or general notion", sentence: "The ___ of time travel is fascinating." },
+                { id: 302, en: "conclude", ar: "يستنتج", def: "To bring something to an end", sentence: "I would like to ___ by thanking you all." },
+                { id: 303, en: "conduct", ar: "سلوك / يجرى", def: "The manner in which a person behaves", sentence: "The school has a strict code of ___." },
+                { id: 304, en: "consequence", ar: "عاقبة", def: "A result or effect of an action", sentence: "Every action has a ___." },
+                { id: 305, en: "consist", ar: "يتكون من", def: "Be composed or made up of", sentence: "The team will ___ of five members." },
+                { id: 306, en: "constant", ar: "ثابت", def: "Occurring continuously", sentence: "The baby needs ___ attention." },
+                { id: 307, en: "construct", ar: "يبني", def: "Build or erect something large", sentence: "They plan to ___ a new bridge over the river." },
+                { id: 308, en: "consumer", ar: "مستهلك", def: "Person who purchases goods", sentence: "The modern ___ expects high quality." },
+                { id: 309, en: "contact", ar: "اتصال", def: "State of physical touching", sentence: "Please keep in ___ while you are away." },
+                { id: 310, en: "contain", ar: "يحتوي", def: "Have or hold someone within", sentence: "This box does not ___ any dangerous items." }
             ],
             D: [
-                { id: 401, en: "effective", ar: "فعال", def: "Successful in producing result", sentence: "This medicine is very ___ against the flu." },
-                { id: 402, en: "efficient", ar: "كفء", def: "Working in a well-organized way", sentence: "The new heater is much more ___." },
-                { id: 403, en: "emphasis", ar: "تأكيد", def: "Special importance or value given", sentence: "The school puts a lot of ___ on sports." },
-                { id: 404, en: "encounter", ar: "يواجه", def: "Unexpectedly experience or meet", sentence: "You might ___ some problems early on." },
-                { id: 405, en: "entire", ar: "كامل", def: "With no part left out; whole", sentence: "He ate the ___ pizza by himself." },
-                { id: 406, en: "essential", ar: "ضروري", def: "Absolutely necessary; extremely important", sentence: "Water is ___ for all living things." },
-                { id: 407, en: "estimate", ar: "يقدر", def: "Roughly calculate or judge", sentence: "They ___ that the repair will cost $500." },
-                { id: 408, en: "evidence", ar: "دليل", def: "Facts indicating if something is true", sentence: "There is no ___ that he committed the crime." },
-                { id: 409, en: "examine", ar: "يفحص", def: "Inspect someone or something in detail", sentence: "The doctor will ___ you now." },
-                { id: 410, en: "exist", ar: "يوجد", def: "Have objective reality or being", sentence: "Do you believe that ghosts ___?" },
-                { id: 411, en: "expand", ar: "يتوسع", def: "Become or make larger or more extensive", sentence: "The company plans to ___ into Europe." },
-                { id: 412, en: "experiment", ar: "تجربة", def: "Procedure to make a discovery", sentence: "The science class did a fun ___ today." },
-                { id: 413, en: "expert", ar: "خبير", def: "Person with comprehensive knowledge", sentence: "He is an ___ in ancient history." },
-                { id: 414, en: "explore", ar: "يستكشف", def: "Travel in order to learn about it", sentence: "Let's ___ the forest behind the house." },
-                { id: 415, en: "feature", ar: "ميزة", def: "Distinctive attribute or aspect", sentence: "A unique ___ of this car is its solar roof." }
+                { id: 401, en: "debate", ar: "مناظرة", def: "Formal discussion on a particular topic", sentence: "There is a heated ___ about climate change." },
+                { id: 402, en: "decrease", ar: "يتناقص", def: "Make or become smaller", sentence: "The population began to ___ after the war." },
+                { id: 403, en: "demonstrate", ar: "يظهر / يبرهن", def: "Clearly show the truth of something", sentence: "She will ___ how to use the new software." },
+                { id: 404, en: "despite", ar: "بالرغم من", def: "Without being affected by", sentence: "___ the rain, we went for a walk." },
+                { id: 405, en: "device", ar: "جهاز", def: "A thing made for a particular purpose", sentence: "A smartphone is a versatile ___." },
+                { id: 406, en: "difference", ar: "اختلاف", def: "A point in which things are not same", sentence: "There is a big ___ between the two results." },
+                { id: 407, en: "difficulty", ar: "صعوبة", def: "The state of being hard to do", sentence: "He finished the task without any ___." },
+                { id: 408, en: "direct", ar: "مباشر", def: "Extending in a straight line", sentence: "Is there a ___ flight to New York?" },
+                { id: 409, en: "discovery", ar: "اكتشاف", def: "Finding something for the first time", sentence: "The ___ of electricity changed everything." },
+                { id: 410, en: "distance", ar: "مسافة", def: "Amount of space between two things", sentence: "The ___ between the cities is 50 miles." }
             ]
         };
-
-        const ENCOURAGEMENTS = [
-            "Outstanding work, {name}! You're a vocab natural.",
-            "Incredible focus, {name}! You're mastering these fast.",
-            "Way to go, {name}! Your progress is undeniable.",
-            "Legendary performance, {name}! Keep that momentum.",
-            "Brilliant job, {name}! You're crushing this list."
-        ];
 
         const App = () => {
             const [user, setUser] = useState(null);
             const [view, setView] = useState('login'); 
             const [gameConfig, setGameConfig] = useState({ difficulty: 'Medium', list: 'A', mode: 'English-Arabic' });
-            
-            const userRef = useRef(null);
-            const configRef = useRef(null);
             
             const [cards, setCards] = useState([]);
             const [flipped, setFlipped] = useState([]);
@@ -168,455 +158,298 @@
             const [totalTimeLimit, setTotalTimeLimit] = useState(0);
             const [isGameOver, setIsGameOver] = useState(false);
             const [syncing, setSyncing] = useState(false);
-            const [finalTimeLabel, setFinalTimeLabel] = useState("");
-            const [encouragement, setEncouragement] = useState("");
-            const timerRef = useRef(null);
-            const scoreRef = useRef(0);
-
+            const [testResult, setTestResult] = useState(null);
             const [testQuestions, setTestQuestions] = useState([]);
             const [testAnswers, setTestAnswers] = useState({});
-            const [testResult, setTestResult] = useState(null);
-            const testAnswersRef = useRef({});
+            
+            const timerRef = useRef(null);
+            const userRef = useRef(null);
 
-            const formatTimeLabel = (totalSeconds) => {
-                const m = Math.floor(totalSeconds / 60);
-                const s = totalSeconds % 60;
-                return `${m}:${s.toString().padStart(2, '0')}`;
-            };
+            const formatTimeLabel = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2, '0')}`;
 
             const triggerSync = async (payloadExtras) => {
-                const u = userRef.current;
-                const c = configRef.current;
-                if (!u || !u.name || !u.className) return;
-
                 setSyncing(true);
                 const payload = {
                     "Timestamp": new Date().toLocaleString(),
-                    "Student Name": u.name,
-                    "Class": u.className,
-                    "List": c.list,
-                    "Difficulty": c.difficulty,
-                    "Mode": c.mode,
-                    "Score": 0,
-                    "Time": "0:00",
-                    "Session Type": "Practice",
+                    "Student Name": userRef.current?.name,
+                    "Class": userRef.current?.className,
+                    "List": gameConfig.list,
+                    "Difficulty": gameConfig.difficulty,
+                    "Mode": gameConfig.mode,
                     ...payloadExtras
                 };
-
                 try {
-                    await fetch(GOOGLE_SHEET_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                } catch (e) {
-                    console.error("Sync failed", e);
-                } finally {
-                    setSyncing(false);
-                }
+                    await fetch(GOOGLE_SHEET_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                } catch (e) { console.error(e); }
+                setSyncing(false);
             };
 
-            const handleLogin = (targetView) => {
-                const nameInput = document.getElementById('studentNameInput');
-                const classInput = document.getElementById('classNameInput');
-                
-                const name = nameInput?.value;
-                const className = classInput?.value;
-                
-                if (!name || !className) {
-                    alert("Please fill in your name and class.");
-                    return;
-                }
-
-                const userData = { name, className };
+            const handleLogin = (target) => {
+                const name = document.getElementById('nameIn')?.value;
+                const cls = document.getElementById('classIn')?.value;
+                if (!name || !cls) return;
+                const userData = { name, className: cls };
                 userRef.current = userData;
-                configRef.current = gameConfig;
                 setUser(userData);
-                
-                if (targetView === 'game') startGame();
-                else if (targetView === 'test') startTest();
-                else setView('menu');
+                setView(target);
             };
 
             const startGame = () => {
-                setView('game');
-                configRef.current = gameConfig;
                 const list = VOCAB_LISTS[gameConfig.list] || VOCAB_LISTS.A;
                 const duration = gameConfig.difficulty === 'Easy' ? 180 : gameConfig.difficulty === 'Medium' ? 120 : 60;
-                
                 setTotalTimeLimit(duration);
                 setTimeLeft(duration);
-                setIsGameOver(false);
                 setScore(0);
-                scoreRef.current = 0;
                 setMatched([]);
                 setFlipped([]);
-                setEncouragement(ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)].replace("{name}", userRef.current?.name || "Student"));
+                setIsGameOver(false);
+                setView('game');
 
-                const subset = [...list].sort(() => Math.random() - 0.5).slice(0, 10);
+                const subset = [...list].sort(() => 0.5 - Math.random()).slice(0, 8);
                 const newCards = [];
                 subset.forEach(item => {
                     newCards.push({ id: item.id, text: item.en, type: 'en', uid: `e-${item.id}` });
                     const matchText = gameConfig.mode === 'English-Arabic' ? item.ar : item.def;
                     newCards.push({ id: item.id, text: matchText, type: 'match', uid: `m-${item.id}`, isAr: gameConfig.mode === 'English-Arabic' });
                 });
-                setCards(newCards.sort(() => Math.random() - 0.5));
+                setCards(newCards.sort(() => 0.5 - Math.random()));
             };
 
             const startTest = () => {
-                setView('test');
-                configRef.current = gameConfig;
                 setTestResult(null);
                 setTestAnswers({});
-                testAnswersRef.current = {};
-                
-                setTotalTimeLimit(300);
                 setTimeLeft(300);
-
-                const list = [...(VOCAB_LISTS[gameConfig.list] || VOCAB_LISTS.A)].sort(() => Math.random() - 0.5);
-                const selected = list.slice(0, 10);
-                const questions = selected.map((item, idx) => {
-                    const isMC = idx < 5;
-                    const options = [item.en, ...list.filter(x => x.id !== item.id).sort(() => Math.random() - 0.5).slice(0, 3).map(x => x.en)].sort();
-                    return {
-                        id: item.id,
-                        correct: item.en,
-                        translation: item.ar,
-                        definition: item.def,
-                        sentence: item.sentence,
-                        options: options,
-                        type: isMC ? 'mc' : 'fill'
-                    };
-                });
-                setTestQuestions(questions.sort(() => Math.random() - 0.5));
+                const list = [...(VOCAB_LISTS[gameConfig.list] || VOCAB_LISTS.A)].sort(() => 0.5 - Math.random());
+                const questions = list.slice(0, 10).map((item, idx) => ({
+                    id: item.id,
+                    correct: item.en,
+                    display: gameConfig.mode === 'English-Arabic' ? item.ar : item.def,
+                    sentence: item.sentence || "The word ___ is very useful in this context.",
+                    options: [item.en, ...list.filter(x => x.id !== item.id).slice(0, 3).map(x => x.en)].sort(),
+                    type: idx < 5 ? 'mc' : 'fill' // Both types now have sentences
+                }));
+                setTestQuestions(questions);
+                setView('test');
             };
 
-            const submitTest = (isAuto = false) => {
-                if (timerRef.current) clearInterval(timerRef.current);
-                let points = 0;
-                const currentAnswers = testAnswersRef.current;
-                
-                testQuestions.forEach(q => {
-                    if (currentAnswers[q.id] === q.correct) points += 10;
-                });
-
-                setTestResult(points);
-                
-                // FIXED: Registering the correct difficulty to the sheet for Test mode
-                triggerSync({ 
-                    "Mode": "Test",
-                    "Difficulty": gameConfig.difficulty,
-                    "Score": points, 
-                    "Time": isAuto ? "Auto-Submit (5:00)" : formatTimeLabel(300 - timeLeft),
-                    "Session Type": "Proficiency Test" 
-                });
+            const submitTest = () => {
+                let p = 0;
+                testQuestions.forEach(q => { if (testAnswers[q.id] === q.correct) p += 10; });
+                setTestResult(p);
+                triggerSync({ "Mode": "Test", "Score": p, "Time": formatTimeLabel(300 - timeLeft), "Session Type": "Assessment" });
             };
 
             useEffect(() => {
                 if (user && (view === 'game' || (view === 'test' && testResult === null)) && timeLeft > 0) {
-                    timerRef.current = setInterval(() => {
-                        setTimeLeft(t => {
-                            if (t <= 1) {
-                                clearInterval(timerRef.current);
-                                if (view === 'game') {
-                                    setIsGameOver(true);
-                                    triggerSync({ "Score": scoreRef.current, "Time": formatTimeLabel(totalTimeLimit), "Session Type": "Practice Game" });
-                                } else if (view === 'test') {
-                                    submitTest(true);
-                                }
-                                return 0;
-                            }
-                            return t - 1;
-                        });
-                    }, 1000);
+                    timerRef.current = setInterval(() => setTimeLeft(t => t - 1), 1000);
                 }
-                return () => { if (timerRef.current) clearInterval(timerRef.current); };
-            }, [user, view, testResult]);
+                if (timeLeft === 0 && user) {
+                    if (view === 'game') setIsGameOver(true);
+                    if (view === 'test' && testResult === null) submitTest();
+                }
+                return () => clearInterval(timerRef.current);
+            }, [user, view, timeLeft, testResult]);
 
             const handleCardClick = (idx) => {
                 if (isGameOver || flipped.length === 2 || flipped.includes(idx) || matched.includes(cards[idx].id)) return;
-                
-                const nextFlipped = [...flipped, idx];
-                setFlipped(nextFlipped);
-
-                if (nextFlipped.length === 2) {
-                    const c1 = cards[nextFlipped[0]];
-                    const c2 = cards[nextFlipped[1]];
-
+                const next = [...flipped, idx];
+                setFlipped(next);
+                if (next.length === 2) {
+                    const c1 = cards[next[0]];
+                    const c2 = cards[next[1]];
                     if (c1.id === c2.id && c1.type !== c2.type) {
-                        const newMatched = [...matched, c1.id];
-                        const newScore = score + 10;
-                        setMatched(newMatched);
-                        setScore(newScore);
-                        scoreRef.current = newScore;
+                        setMatched(m => [...m, c1.id]);
+                        setScore(s => s + 10);
                         setFlipped([]);
-
-                        if (newMatched.length === 10) {
-                            if (timerRef.current) clearInterval(timerRef.current);
-                            setIsGameOver(true);
-                            const secondsSpent = totalTimeLimit - (timeLeft - 1);
-                            setFinalTimeLabel(formatTimeLabel(secondsSpent));
-                            triggerSync({ "Score": newScore, "Time": formatTimeLabel(secondsSpent), "Session Type": "Practice Game" });
-                        }
+                        if (matched.length + 1 === 8) setIsGameOver(true);
                     } else {
                         setTimeout(() => setFlipped([]), 1000);
                     }
                 }
             };
 
-            const updateTestAnswer = (id, val) => {
-                const newAnswers = {...testAnswers, [id]: val};
-                setTestAnswers(newAnswers);
-                testAnswersRef.current = newAnswers;
-            };
+            if (view === 'login') return (
+                <div className="min-h-screen flex items-center justify-center p-6">
+                    <div className="bg-white/95 backdrop-blur-xl rounded-[3rem] p-12 w-full max-w-lg shadow-2xl border border-white/50 float-anim text-center">
+                        <h1 className="text-6xl font-black italic tracking-tighter text-indigo-900 mb-0">VOCAB MASTER</h1>
+                        <p className="text-2xl font-black text-indigo-600 mb-4 tracking-tight">Fouad Nasir</p>
+                        <div className="h-1.5 w-24 bg-indigo-600 mx-auto rounded-full mb-4 opacity-20"></div>
+                        <p className="text-lg font-bold text-slate-400 uppercase tracking-widest mb-10">Student Portal</p>
+                        <div className="space-y-6">
+                            <input id="nameIn" placeholder="Full Name" className="w-full p-6 bg-slate-100 rounded-3xl font-black text-xl border-2 border-transparent focus:border-indigo-600 outline-none transition-all" />
+                            <input id="classIn" placeholder="Class (e.g. 11A)" className="w-full p-6 bg-slate-100 rounded-3xl font-black text-xl border-2 border-transparent focus:border-indigo-600 outline-none transition-all" />
+                            <button onClick={() => handleLogin('menu')} className="w-full py-6 bg-indigo-600 text-white rounded-3xl font-black text-2xl uppercase tracking-tighter hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200">Start Learning</button>
+                        </div>
+                    </div>
+                </div>
+            );
 
-            if (!user) {
-                return (
-                    <div className="min-h-screen flex items-center justify-center bg-indigo-950 p-6">
-                        <div className="bg-white rounded-[2rem] p-8 w-full max-w-sm shadow-2xl">
-                            <div className="text-center mb-6">
-                                <h1 className="text-3xl font-black italic uppercase tracking-tighter text-slate-800">Vocab Master</h1>
-                                <p className="text-xs font-bold text-indigo-500 uppercase tracking-[0.2em] mt-1">Fouad Nasir</p>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="space-y-1">
-                                    <label className="text-[10px] font-black uppercase text-slate-400 ml-2">Student Identity</label>
-                                    <input id="studentNameInput" required placeholder="Full Name" className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-4 focus:ring-indigo-50 outline-none transition-all" />
-                                </div>
-                                <div className="space-y-1">
-                                    <label className="text-[10px] font-black uppercase text-slate-400 ml-2">Classroom</label>
-                                    <input id="classNameInput" required placeholder="Class (e.g. 10B)" className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-4 focus:ring-indigo-50 outline-none transition-all" />
-                                </div>
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-black uppercase text-slate-400 ml-2">Level</label>
-                                        <select className="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none" onChange={e => setGameConfig({...gameConfig, list: e.target.value})}>
-                                            <option value="A">List A</option>
-                                            <option value="B">List B</option>
-                                            <option value="C">List C</option>
-                                            <option value="D">List D</option>
+            if (view === 'menu') return (
+                <div className="min-h-screen flex items-center justify-center p-6">
+                    <div className="w-full max-w-4xl grid md:grid-cols-2 gap-8">
+                        <div className="bg-white/95 rounded-[3.5rem] p-10 shadow-2xl space-y-8 flex flex-col justify-center">
+                            <h2 className="text-5xl font-black text-indigo-950 leading-tight">Welcome,<br/>{user.name}</h2>
+                            <p className="text-xl font-medium text-slate-500">Configure your session and choose an activity.</p>
+                            
+                            <div className="space-y-6">
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="space-y-3">
+                                        <label className="text-xl font-black uppercase text-indigo-600 ml-2 block">LIST</label>
+                                        <select className="w-full p-5 bg-slate-100 rounded-2xl font-black text-xl outline-none border-2 border-transparent focus:border-indigo-600" value={gameConfig.list} onChange={e => setGameConfig({...gameConfig, list: e.target.value})}>
+                                            <option value="A">LIST A</option>
+                                            <option value="B">LIST B</option>
+                                            <option value="C">LIST C</option>
+                                            <option value="D">LIST D</option>
                                         </select>
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-black uppercase text-slate-400 ml-2">Difficulty</label>
-                                        <select className="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none" onChange={e => setGameConfig({...gameConfig, difficulty: e.target.value})} defaultValue="Medium">
+                                    <div className="space-y-3">
+                                        <label className="text-xl font-black uppercase text-indigo-600 ml-2 block">DIFFICULTY</label>
+                                        <select className="w-full p-5 bg-slate-100 rounded-2xl font-black text-xl outline-none border-2 border-transparent focus:border-indigo-600" value={gameConfig.difficulty} onChange={e => setGameConfig({...gameConfig, difficulty: e.target.value})}>
                                             <option>Easy</option><option>Medium</option><option>Hard</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div className="space-y-1">
-                                    <label className="text-[10px] font-black uppercase text-slate-400 ml-2">Practice Style</label>
-                                    <select className="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none" onChange={e => setGameConfig({...gameConfig, mode: e.target.value})}>
+                                <div className="space-y-3">
+                                    <label className="text-xl font-black uppercase text-indigo-600 ml-2 block">MODE</label>
+                                    <select className="w-full p-5 bg-slate-100 rounded-2xl font-black text-xl outline-none border-2 border-transparent focus:border-indigo-600" value={gameConfig.mode} onChange={e => setGameConfig({...gameConfig, mode: e.target.value})}>
                                         <option>English-Arabic</option><option>Word-Definition</option>
                                     </select>
                                 </div>
-
-                                <div className="pt-4 grid grid-cols-1 gap-3">
-                                    <button onClick={() => handleLogin('game')} className="w-full py-4 bg-indigo-600 text-white rounded-[1.2rem] font-black text-sm uppercase tracking-widest active:scale-95 transition-all shadow-lg shadow-indigo-100">Play Game</button>
-                                    <button onClick={() => handleLogin('test')} className="w-full py-4 bg-emerald-600 text-white rounded-[1.2rem] font-black text-sm uppercase tracking-widest active:scale-95 transition-all shadow-lg shadow-emerald-100">Take a Test</button>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                );
-            }
 
-            if (view === 'menu') {
-                return (
-                    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6">
-                        <div className="max-w-md w-full space-y-6 text-center">
-                            <h2 className="text-4xl font-black text-slate-800">Hi, {user.name}</h2>
-                            <p className="text-slate-500 font-medium italic">What is your objective today?</p>
-                            <div className="grid grid-cols-1 gap-4 mt-6">
-                                <button onClick={startGame} className="p-6 bg-white border-2 border-slate-100 rounded-[1.5rem] hover:border-indigo-600 transition-all font-black text-slate-800 group text-left flex justify-between items-center">
-                                    <span>PRACTICE GAME</span>
-                                    <span className="text-indigo-600 opacity-0 group-hover:opacity-100 transition-all">→</span>
-                                </button>
-                                <button onClick={startTest} className="p-6 bg-white border-2 border-slate-100 rounded-[1.5rem] hover:border-emerald-600 transition-all font-black text-slate-800 group text-left flex justify-between items-center">
-                                    <span>TAKE A TEST</span>
-                                    <span className="text-emerald-600 opacity-0 group-hover:opacity-100 transition-all">→</span>
-                                </button>
-                                <button onClick={() => setUser(null)} className="p-6 text-slate-400 font-bold hover:text-red-500 transition-all uppercase text-xs tracking-widest">LOGOUT</button>
-                            </div>
+                        <div className="space-y-6">
+                            <button onClick={startGame} className="w-full p-10 bg-indigo-600 text-white rounded-[3.5rem] shadow-2xl hover:scale-[1.02] transition-all text-left group">
+                                <div className="text-xs font-black tracking-widest mb-4 opacity-70 uppercase">01 PRACTICE</div>
+                                <h3 className="text-4xl font-black mb-2">Memory Match</h3>
+                                <p className="text-indigo-200 font-bold">Improve recall with visual matching cards.</p>
+                            </button>
+                            <button onClick={startTest} className="w-full p-10 bg-white text-slate-900 rounded-[3.5rem] shadow-2xl hover:scale-[1.02] transition-all text-left group border-4 border-indigo-600">
+                                <div className="text-xs font-black tracking-widest mb-4 text-indigo-600 uppercase">02 EVALUATE</div>
+                                <h3 className="text-4xl font-black mb-2">Take a Test</h3>
+                                <p className="text-slate-400 font-bold">10-question proficiency assessment.</p>
+                            </button>
+                            <button onClick={() => setUser(null)} className="w-full py-4 text-indigo-100 font-black tracking-[0.3em] text-xs">LOGOUT SESSION</button>
                         </div>
                     </div>
-                );
-            }
+                </div>
+            );
 
-            if (view === 'test') {
-                return (
-                    <div className="min-h-screen bg-slate-50 pb-20">
-                        <header className="bg-white border-b p-4 sticky top-0 z-40 flex justify-between items-center px-6">
-                             <button onClick={() => setView('menu')} className="text-slate-400 hover:text-slate-600 font-black text-xs uppercase tracking-widest flex items-center gap-2">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7"></path></svg>
-                                Back
-                             </button>
-                             <div className="text-center">
-                                {/* FIXED: Increased font size for Time Remaining label */}
-                                <span className={`text-sm font-black uppercase tracking-[0.2em] block mb-1 ${timeLeft < 30 ? 'text-rose-500 animate-pulse' : 'text-indigo-600'}`}>
-                                    {timeLeft === 0 ? 'TIME EXPIRED' : `Time Remaining`}
-                                </span>
-                                {/* Timer font is already large (text-4xl), added extra weight for emphasis */}
-                                <span className={`text-5xl font-black tabular-nums block ${timeLeft < 30 ? 'text-rose-600' : 'text-slate-900'}`}>{formatTimeLabel(timeLeft)}</span>
-                             </div>
-                             <div className="w-16"></div>
-                        </header>
-
-                        <div className="max-w-2xl mx-auto p-6 space-y-12 mt-8">
-                            <h1 className="text-2xl font-black text-slate-800 text-center uppercase tracking-tight">List {gameConfig.list} Proficiency Assessment</h1>
-                            
-                            {testQuestions.map((q, idx) => (
-                                <div key={q.id} className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 relative overflow-hidden">
-                                    {testResult !== null && (
-                                        <div className={`absolute top-0 right-0 p-4 font-black uppercase text-xs ${testAnswers[q.id] === q.correct ? 'text-emerald-500' : 'text-rose-500'}`}>
-                                            {testAnswers[q.id] === q.correct ? 'Correct' : 'Incorrect'}
-                                        </div>
-                                    )}
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <span className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-sm font-black text-slate-500">{idx + 1}</span>
-                                        {/* FIXED: Increased font size for Vocabulary Link / Sentence Context */}
-                                        <span className="text-sm font-black text-slate-400 uppercase tracking-widest">{q.type === 'mc' ? 'Vocabulary Link' : 'Sentence Context'}</span>
-                                    </div>
-                                    
-                                    {q.type === 'mc' ? (
-                                        <div className="space-y-6">
-                                            <h3 className="text-3xl font-extrabold text-slate-800 leading-tight">
-                                                Which word matches the meaning: <span className="text-indigo-600 italic">"{gameConfig.mode === 'English-Arabic' ? q.translation : q.definition}"</span>?
-                                            </h3>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                {q.options.map(opt => (
-                                                    <button 
-                                                        key={opt}
-                                                        disabled={testResult !== null}
-                                                        onClick={() => updateTestAnswer(q.id, opt)}
-                                                        className={`p-5 rounded-2xl font-black text-2xl text-left transition-all border-2 ${testAnswers[q.id] === opt ? (testResult !== null ? (opt === q.correct ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-rose-500 bg-rose-50 text-rose-700') : 'border-indigo-600 bg-indigo-50 text-indigo-600') : (testResult !== null && opt === q.correct ? 'border-emerald-500 bg-emerald-50' : 'border-slate-100 hover:border-slate-200 text-slate-600')}`}
-                                                    >
-                                                        {opt}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className="space-y-6">
-                                            <h3 className="text-3xl font-extrabold text-slate-800 leading-relaxed">
-                                                {q.sentence.split('___')[0]}
-                                                <div className="relative inline-block mx-2 align-middle min-w-[200px]">
-                                                    <select 
-                                                        disabled={testResult !== null}
-                                                        value={testAnswers[q.id] || ""}
-                                                        onChange={(e) => updateTestAnswer(q.id, e.target.value)}
-                                                        className={`w-full px-5 py-3 rounded-xl border-2 outline-none font-black text-2xl appearance-none cursor-pointer transition-all ${testResult !== null ? (testAnswers[q.id] === q.correct ? 'bg-emerald-100 border-emerald-500 text-emerald-700' : 'bg-rose-100 border-rose-500 text-rose-700') : 'bg-indigo-50 border-indigo-200 text-indigo-700 hover:border-indigo-400'}`}
-                                                    >
-                                                        <option value="">Select word...</option>
-                                                        {q.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                                                    </select>
-                                                </div>
-                                                {q.sentence.split('___')[1]}
-                                            </h3>
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-
-                            {testResult === null ? (
-                                <button 
-                                    onClick={() => submitTest(false)}
-                                    disabled={Object.keys(testAnswers).length < 10 || syncing}
-                                    className="w-full py-6 bg-indigo-600 text-white rounded-[2rem] font-black text-2xl shadow-xl shadow-indigo-100 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3 mt-12 mb-20"
-                                >
-                                    {syncing && <div className="spinner"></div>}
-                                    {syncing ? 'RECORDING SCORE...' : 'FINISH TEST'}
-                                </button>
-                            ) : (
-                                <div className="bg-slate-900 rounded-[3rem] p-10 text-center text-white shadow-2xl mb-20">
-                                    <div className="text-xs font-black text-indigo-400 uppercase tracking-[0.3em] mb-4">Final Score</div>
-                                    <div className="text-9xl font-black mb-4">{testResult}<span className="text-3xl text-slate-500">/100</span></div>
-                                    <p className="text-slate-400 text-lg font-medium mb-8">Test recorded successfully for {user.name}.</p>
-                                    <button onClick={() => setView('menu')} className="w-full py-6 bg-white text-slate-900 rounded-3xl font-black text-xl active:scale-95 transition-all">EXIT ASSESSMENT</button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                );
-            }
-
-            return (
-                <div className="flex flex-col min-h-screen bg-slate-50">
-                    <div className="h-2 w-full bg-slate-200 sticky top-0 z-50">
-                        <div className="h-full bg-indigo-600 transition-all duration-1000" style={{ width: `${(timeLeft/totalTimeLimit)*100}%` }}></div>
-                    </div>
-                    
-                    <header className="bg-white/80 backdrop-blur-md p-4 border-b flex justify-between items-center px-6 sticky top-2 z-40">
+            if (view === 'game') return (
+                <div className="p-6 max-w-7xl mx-auto min-h-screen flex flex-col">
+                    <header className="flex justify-between items-center mb-8 bg-white/20 p-6 rounded-3xl backdrop-blur-md border border-white/30">
                         <div className="flex flex-col">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">Time Left</span>
-                            <span className="text-3xl font-black tabular-nums text-slate-900">{formatTimeLabel(timeLeft)}</span>
+                            <span className="text-sm font-black text-indigo-200 uppercase tracking-widest">Time Remaining</span>
+                            <span className="text-5xl font-black text-white tabular-nums">{formatTimeLabel(timeLeft)}</span>
                         </div>
-                        
-                        <div className="text-center">
-                            <button onClick={() => setView('menu')} className="text-xs font-black text-indigo-400 uppercase tracking-widest hover:underline px-4 py-2 bg-indigo-50 rounded-full">Exit Practice</button>
-                        </div>
-
-                        <div className="flex flex-col items-end">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none text-right">Points</span>
-                            <span className="text-3xl font-black text-indigo-600 tabular-nums">{score}</span>
+                        <button onClick={() => setView('menu')} className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-2xl font-black uppercase text-sm tracking-widest transition-all">Quit</button>
+                        <div className="text-right flex flex-col">
+                            <span className="text-sm font-black text-indigo-200 uppercase tracking-widest">Total Score</span>
+                            <span className="text-5xl font-black text-white tabular-nums">{score}</span>
                         </div>
                     </header>
 
-                    <main className="flex-1 p-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4 max-w-6xl mx-auto w-full pb-20 mt-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 flex-1">
                         {cards.map((card, i) => {
                             const show = flipped.includes(i) || matched.includes(card.id);
                             return (
-                                <div key={card.uid} onClick={() => handleCardClick(i)} className="aspect-[4/3] perspective-1000 cursor-pointer">
+                                <div key={card.uid} onClick={() => handleCardClick(i)} className="aspect-[3/2] perspective-1000">
                                     <div className={`card-inner ${show ? 'card-flipped' : ''}`}>
-                                        <div className="card-front bg-white border-2 border-slate-100 text-slate-200 font-black text-4xl">?</div>
-                                        <div className={`card-back border-2 ${matched.includes(card.id) ? 'bg-emerald-500 border-emerald-400 text-white shadow-lg shadow-emerald-100' : 'bg-white border-indigo-600 text-indigo-600 shadow-md'}`}>
-                                            <span className={`font-black leading-tight ${card.isAr ? 'arabic text-2xl' : 'text-sm sm:text-base px-2'}`}>{card.text}</span>
+                                        <div className="card-front text-7xl font-black">?</div>
+                                        <div className={`card-back ${matched.includes(card.id) ? 'bg-emerald-500 border-emerald-400 text-white' : 'bg-white border-indigo-600 text-indigo-900'}`}>
+                                            <span className={`font-black uppercase tracking-tight leading-tight ${card.isAr ? 'arabic text-3xl' : 'text-xl'}`}>{card.text}</span>
                                         </div>
                                     </div>
                                 </div>
                             );
                         })}
-                    </main>
+                    </div>
 
                     {isGameOver && (
-                        <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-6">
-                            <div className="bg-white rounded-[2.5rem] p-10 text-center max-w-md w-full shadow-2xl relative overflow-hidden">
-                                {syncing && (
-                                    <div className="absolute top-0 left-0 w-full h-1 bg-indigo-100 overflow-hidden">
-                                        <div className="h-full bg-indigo-600 animate-[loading_1.5s_infinite_linear]" style={{width:'40%'}}></div>
+                        <div className="fixed inset-0 bg-indigo-950/95 flex items-center justify-center p-6 z-50">
+                            <div className="bg-white rounded-[4rem] p-16 text-center max-w-xl w-full shadow-2xl">
+                                <h2 className="text-6xl font-black text-indigo-900 mb-4">Well Done!</h2>
+                                <p className="text-2xl font-bold text-slate-400 mb-10">You've mastered these words.</p>
+                                <div className="grid grid-cols-2 gap-8 mb-12">
+                                    <div className="bg-slate-50 p-8 rounded-[2.5rem]">
+                                        <div className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">Final Score</div>
+                                        <div className="text-7xl font-black text-indigo-600">{score}</div>
                                     </div>
-                                )}
-                                
-                                <div className="mb-8">
-                                    <div className={`w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 ${timeLeft === 0 ? 'bg-amber-50' : 'bg-emerald-50'}`}>
-                                        <svg className={`w-10 h-10 ${timeLeft === 0 ? 'text-amber-600' : 'text-emerald-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            {timeLeft === 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"></path> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>}
-                                        </svg>
-                                    </div>
-                                    <h2 className="text-2xl font-black text-slate-800 mb-2 leading-tight">{timeLeft === 0 ? `Time's up!` : encouragement}</h2>
-                                    <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Practice Session Complete</p>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4 mb-8">
-                                    <div className="bg-slate-50 rounded-3xl p-6">
-                                        <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Score</div>
-                                        <div className="text-5xl font-black text-indigo-600 tracking-tighter">{score}</div>
-                                    </div>
-                                    <div className="bg-slate-50 rounded-3xl p-6">
-                                        <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Time</div>
-                                        <div className="text-5xl font-black text-indigo-600 tracking-tighter">{finalTimeLabel || formatTimeLabel(totalTimeLimit)}</div>
+                                    <div className="bg-slate-50 p-8 rounded-[2.5rem]">
+                                        <div className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">Accuracy</div>
+                                        <div className="text-7xl font-black text-indigo-600">100%</div>
                                     </div>
                                 </div>
-                                
-                                <div className="grid grid-cols-1 gap-3">
-                                    <button onClick={startGame} className="w-full py-5 bg-indigo-600 text-white rounded-[1.5rem] font-black text-xl shadow-xl shadow-indigo-100 active:scale-95 transition-all">TRY AGAIN</button>
-                                    <button onClick={() => setView('menu')} className="w-full py-4 text-slate-400 rounded-[1.5rem] font-black hover:bg-slate-50 active:scale-95 transition-all text-sm uppercase tracking-widest">BACK TO MENU</button>
+                                <div className="space-y-4">
+                                    <button onClick={startGame} className="w-full py-6 bg-indigo-600 text-white rounded-3xl font-black text-2xl uppercase hover:bg-indigo-700 transition-all">Play Again</button>
+                                    <button onClick={() => setView('menu')} className="w-full py-6 text-slate-400 font-black text-lg hover:text-indigo-600 transition-all">Back to Menu</button>
                                 </div>
                             </div>
                         </div>
                     )}
-                    <style>{`@keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }`}</style>
+                </div>
+            );
+
+            if (view === 'test') return (
+                <div className="p-6 max-w-4xl mx-auto min-h-screen">
+                    <div className="bg-white/95 rounded-[4rem] shadow-2xl p-12 mb-20">
+                        <header className="flex justify-between items-center mb-16 border-b pb-10">
+                            <div>
+                                <h2 className="text-5xl font-black text-indigo-950 uppercase tracking-tighter">Test Mode</h2>
+                                <p className="text-xl font-bold text-slate-400 uppercase tracking-widest mt-2">List {gameConfig.list}</p>
+                            </div>
+                            <div className="text-right">
+                                <span className="text-sm font-black text-indigo-400 uppercase block mb-1">Time Remaining</span>
+                                <span className={`text-6xl font-black tabular-nums ${timeLeft < 30 ? 'text-red-600 animate-pulse' : 'text-slate-900'}`}>{formatTimeLabel(timeLeft)}</span>
+                            </div>
+                        </header>
+
+                        <div className="space-y-24">
+                            {testQuestions.map((q, idx) => (
+                                <div key={q.id} className="relative">
+                                    <div className="flex items-center gap-6 mb-8">
+                                        <span className="w-16 h-16 rounded-3xl bg-indigo-600 text-white flex items-center justify-center text-2xl font-black">{idx + 1}</span>
+                                        <div className="h-0.5 flex-1 bg-slate-100"></div>
+                                    </div>
+
+                                    <div className="space-y-8">
+                                        <h3 className="text-4xl font-black text-indigo-950 leading-relaxed">
+                                            {q.sentence.split('___')[0]}
+                                            <select 
+                                                value={testAnswers[q.id] || ""}
+                                                onChange={e => setTestAnswers({...testAnswers, [q.id]: e.target.value})}
+                                                className="mx-4 p-4 rounded-2xl bg-indigo-50 border-4 border-indigo-200 text-indigo-600 font-black outline-none appearance-none cursor-pointer hover:border-indigo-400 transition-all min-w-[200px]"
+                                            >
+                                                <option value="">Select answer...</option>
+                                                {q.options.map(o => <option key={o} value={o}>{o}</option>)}
+                                            </select>
+                                            {q.sentence.split('___')[1]}
+                                        </h3>
+                                        <p className="text-lg font-bold text-slate-400 uppercase tracking-widest">
+                                            Clue: <span className="text-indigo-600">{q.display}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {testResult === null ? (
+                            <button 
+                                onClick={submitTest}
+                                className="w-full mt-24 py-10 bg-indigo-600 text-white rounded-[3rem] font-black text-4xl shadow-2xl hover:bg-indigo-700 transition-all flex items-center justify-center gap-6"
+                            >
+                                {syncing && <div className="spinner"></div>}
+                                SUBMIT ASSESSMENT
+                            </button>
+                        ) : (
+                            <div className="mt-24 p-12 bg-slate-900 rounded-[4rem] text-white text-center">
+                                <div className="text-xs font-black tracking-[0.4em] uppercase text-indigo-400 mb-6">Evaluation Result</div>
+                                <div className="text-[12rem] font-black leading-none mb-6">{testResult}<span className="text-4xl text-slate-600">/100</span></div>
+                                <p className="text-2xl font-bold text-slate-400 mb-12">Congratulations, {user.name}. Your score has been recorded.</p>
+                                <button onClick={() => setView('menu')} className="w-full py-8 bg-white text-slate-900 rounded-3xl font-black text-2xl uppercase tracking-tighter hover:bg-slate-100 transition-all">Exit to Menu</button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             );
         };
