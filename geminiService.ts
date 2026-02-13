@@ -1,15 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Ensure process.env is available for the SDK
-if (typeof window !== 'undefined') {
-  (window as any).process = (window as any).process || { env: {} };
-}
-
 export async function getVocabHint(word: string, pos: string): Promise<string> {
-  const apiKey = process.env.API_KEY;
+  // Safe check for API key in browser environment
+  const apiKey = (typeof process !== 'undefined' && process.env) 
+    ? process.env.API_KEY 
+    : (window as any).process?.env?.API_KEY;
   
   if (!apiKey) {
-    console.warn("API_KEY missing. Hints are disabled.");
+    console.warn("Gemini API Key is not configured. Hints are disabled.");
     return "Complete the match to learn this word!";
   }
 
@@ -25,6 +23,6 @@ export async function getVocabHint(word: string, pos: string): Promise<string> {
     return response.text || "Match the terms to learn more.";
   } catch (error) {
     console.error("Gemini Hint Error:", error);
-    return "Try matching the terms!";
+    return "Keep matching! You are doing great!";
   }
 }
