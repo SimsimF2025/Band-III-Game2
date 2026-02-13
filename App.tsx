@@ -3,7 +3,7 @@ import { GameState, GameList, GameMode, Difficulty, CardData, VocabItem } from '
 import { VOCABULARY } from './vocabulary';
 import { getVocabHint } from './geminiService';
 
-// Updated GOOGLE SHEETS SYNC URL
+// GOOGLE SHEETS SYNC URL provided by the user
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby7FIHOhY5F-1Be-TKeDZpVpIXoAitIpXoMBXCncRgKXG_by0-ADK8yxifRol_sAnpE4g/exec'; 
 
 // --- Sound Utility ---
@@ -141,6 +141,7 @@ export default function App() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   
   const { initAudio, playFlip, playMatch, playError } = useAudio();
+  const hasSubmittedRef = useRef(false);
 
   // Timer Effect
   useEffect(() => {
@@ -155,29 +156,34 @@ export default function App() {
 
   // Submit Result Effect
   useEffect(() => {
-    if (gameState.isGameOver && GOOGLE_SHEET_URL) {
+    if (gameState.isGameOver && GOOGLE_SHEET_URL && !hasSubmittedRef.current) {
       submitResultToSheet();
+      hasSubmittedRef.current = true;
     }
   }, [gameState.isGameOver]);
 
   const submitResultToSheet = async () => {
     setSubmitStatus('submitting');
     try {
+      // Create payload matching expected structure for an Apps Script doPost handler
+      const payload = {
+        studentName: gameState.studentName,
+        studentClass: gameState.studentClass,
+        score: gameState.score,
+        timer: gameState.timer,
+        selectedList: gameState.selectedList,
+        difficulty: gameState.difficulty,
+        mode: gameState.mode,
+        timestamp: new Date().toLocaleString()
+      };
+
       await fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors', 
         headers: {
-          'Content-Type': 'text/plain',
+          'Content-Type': 'text/plain', // Prevents preflight OPTIONS request which Google Sheets macro often doesn't support
         },
-        body: JSON.stringify({
-          studentName: gameState.studentName,
-          studentClass: gameState.studentClass,
-          score: gameState.score,
-          timer: gameState.timer,
-          selectedList: gameState.selectedList,
-          difficulty: gameState.difficulty,
-          mode: gameState.mode
-        }),
+        body: JSON.stringify(payload),
       });
       setSubmitStatus('success');
     } catch (error) {
@@ -189,6 +195,7 @@ export default function App() {
   const initGame = useCallback(() => {
     initAudio(); 
     setSubmitStatus('idle');
+    hasSubmittedRef.current = false;
     
     let wordCount = 10;
     if (gameState.difficulty === Difficulty.Medium) wordCount = 15;
