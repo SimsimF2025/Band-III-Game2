@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Band III Vocab Master-Fouad Nasir</title>
+    <title>Band III Vocab Master</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -66,52 +66,72 @@
 
         const VOCAB_LISTS = {
             A: [
-                { id: 1, en: "Analyze", ar: "يحلل", def: "Examine in detail" },
-                { id: 2, en: "Approach", ar: "نهج", def: "A way of dealing with something" },
-                { id: 3, en: "Assume", ar: "يفترض", def: "Suppose without proof" },
-                { id: 4, en: "Benefit", ar: "فائدة", def: "An advantage gained" },
-                { id: 5, en: "Concept", ar: "مفهوم", def: "An abstract idea" },
-                { id: 6, en: "Context", ar: "سياق", def: "Circumstances of an event" },
-                { id: 7, en: "Data", ar: "بيانات", def: "Facts and statistics" },
-                { id: 8, en: "Establish", ar: "يؤسس", def: "Set up on a firm basis" },
-                { id: 9, en: "Factor", ar: "عامل", def: "A circumstance that contributes" },
-                { id: 10, en: "Identify", ar: "يحدد", def: "Establish who or what" }
+                { id: 101, en: "addition", ar: "إضافة", def: "Adding/extension/inclusion" },
+                { id: 102, en: "advance", ar: "تقدم", def: "Progress or discoveries" },
+                { id: 103, en: "advanced", ar: "متقدم", def: "Modern, high level" },
+                { id: 104, en: "advertising", ar: "إعلان", def: "Business of persuading people to buy" },
+                { id: 105, en: "analysis", ar: "تحليل", def: "Examining something carefully" },
+                { id: 106, en: "appear", ar: "يظهر", def: "To start to be seen" },
+                { id: 107, en: "approach", ar: "نهج", def: "Method or way of dealing with something" },
+                { id: 108, en: "average", ar: "معدل", def: "Ordinary or usual" },
+                { id: 109, en: "available", ar: "متاح", def: "Able to be used or obtained" },
+                { id: 110, en: "benefit", ar: "فائدة", def: "An advantage or profit" },
+                { id: 111, en: "block", ar: "كتلة", def: "Solid piece of hard material" },
+                { id: 112, en: "brief", ar: "مختصر", def: "Lasting a short time" },
+                { id: 113, en: "calculate", ar: "يحسب", def: "Determine mathematically" },
+                { id: 114, en: "campaign", ar: "حملة", def: "Organized course of action" },
+                { id: 115, en: "capital", ar: "عاصمة", def: "Most important city of a country" }
             ],
             B: [
-                { id: 11, en: "Interpret", ar: "يفسر", def: "Explain the meaning" },
-                { id: 12, en: "Method", ar: "طريقة", def: "A procedure to follow" },
-                { id: 13, en: "Period", ar: "فترة", def: "A length of time" },
-                { id: 14, en: "Policy", ar: "سياسة", def: "Course of action adopted" },
-                { id: 15, en: "Process", ar: "عملية", def: "Series of actions" },
-                { id: 16, en: "Role", ar: "دور", def: "Function assumed by a person" },
-                { id: 17, en: "Section", ar: "قسم", def: "Distinct group or part" },
-                { id: 18, en: "Source", ar: "مصدر", def: "Place something comes from" },
-                { id: 19, en: "Theory", ar: "نظرية", def: "System of ideas" },
-                { id: 20, en: "Vary", ar: "يتنوع", def: "Differ in size or amount" }
+                { id: 201, en: "challenge", ar: "تحدي", def: "Something needing great effort" },
+                { id: 202, en: "character", ar: "شخصية", def: "Qualities distinctive to an individual" },
+                { id: 203, en: "circumstance", ar: "ظرف", def: "Fact or condition connected to an event" },
+                { id: 204, en: "collection", ar: "مجموعة", def: "Group of things gathered together" },
+                { id: 205, en: "combine", ar: "يدمج", def: "Join or merge to form a single unit" },
+                { id: 206, en: "common", ar: "شائع", def: "Occurring, found, or done often" },
+                { id: 207, en: "compete", ar: "يتنافس", def: "Strive to gain or win something" },
+                { id: 208, en: "complex", ar: "معقد", def: "Consisting of many different parts" },
+                { id: 209, en: "conclusion", ar: "استنتاج", def: "The end or finish of an event" },
+                { id: 210, en: "confirm", ar: "يؤكد", def: "Establish the truth or correctness" },
+                { id: 211, en: "consequence", ar: "نتيجة", def: "Result or effect of an action" },
+                { id: 212, en: "considerable", ar: "كبير", def: "Great in size, amount, or extent" },
+                { id: 213, en: "constant", ar: "ثابت", def: "Occurring continuously" },
+                { id: 214, en: "contact", ar: "اتصال", def: "Communicating or meeting" },
+                { id: 215, en: "contain", ar: "يحتوي", def: "Have or hold someone or something" }
             ],
             C: [
-                { id: 21, en: "Acquire", ar: "يكتسب", def: "Buy or obtain for oneself" },
-                { id: 22, en: "Category", ar: "فئة", def: "A class or division of things" },
-                { id: 23, en: "Complex", ar: "معقد", def: "Consisting of many parts" },
-                { id: 24, en: "Culture", ar: "ثقافة", def: "Customs of a society" },
-                { id: 25, en: "Design", ar: "يصمم", def: "A plan or drawing" },
-                { id: 26, en: "Element", ar: "عنصر", def: "A part of something" },
-                { id: 27, en: "Focus", ar: "تركيز", def: "The center of interest" },
-                { id: 28, en: "Impact", ar: "تأثير", def: "Strong effect or influence" },
-                { id: 29, en: "Maintain", ar: "يحافظ", def: "Keep at the same level" },
-                { id: 30, en: "Potential", ar: "إمكانية", def: "Capacity to develop" }
+                { id: 301, en: "creative", ar: "مبدع", def: "Using imagination to create" },
+                { id: 302, en: "criticism", ar: "نقد", def: "Expression of disapproval" },
+                { id: 303, en: "current", ar: "حالي", def: "Belonging to the present time" },
+                { id: 304, en: "decrease", ar: "ينقص", def: "Make or become smaller" },
+                { id: 305, en: "delay", ar: "تأجيل", def: "Make someone or something late" },
+                { id: 306, en: "deliberate", ar: "متعمد", def: "Done consciously and intentionally" },
+                { id: 307, en: "demonstrate", ar: "يوضح", def: "Show clearly by giving proof" },
+                { id: 308, en: "design", ar: "تصميم", def: "A plan or drawing produced to show look" },
+                { id: 309, en: "despite", ar: "على الرغم من", def: "Without being affected by" },
+                { id: 310, en: "detail", ar: "تفصيل", def: "Individual fact or item" },
+                { id: 311, en: "develop", ar: "يطور", def: "Grow or cause to grow" },
+                { id: 312, en: "device", ar: "جهاز", def: "Thing made for a particular purpose" },
+                { id: 313, en: "difference", ar: "اختلاف", def: "Way in which things are not same" },
+                { id: 314, en: "difficulty", ar: "صعوبة", def: "The state of being hard to do" },
+                { id: 315, en: "direct", ar: "مباشر", def: "Extending in a straight line" }
             ],
             D: [
-                { id: 31, en: "Relevant", ar: "ذو صلة", def: "Connected to the matter" },
-                { id: 32, en: "Select", ar: "يختار", def: "Choose the best" },
-                { id: 33, en: "Transfer", ar: "ينقل", def: "Move from place to place" },
-                { id: 34, en: "Utility", ar: "منفعة", def: "Being useful" },
-                { id: 35, en: "Volume", ar: "حجم", def: "Amount of space" },
-                { id: 36, en: "Primary", ar: "أساسي", def: "Of chief importance" },
-                { id: 37, en: "Reaction", ar: "رد فعل", def: "Action in response" },
-                { id: 38, en: "Strategy", ar: "استراتيجية", def: "Plan to achieve goal" },
-                { id: 39, en: "Task", ar: "مهمة", def: "Work to be done" },
-                { id: 40, en: "View", ar: "رؤية", def: "Ability to see" }
+                { id: 401, en: "effective", ar: "فعال", def: "Successful in producing result" },
+                { id: 402, en: "efficient", ar: "كفء", def: "Working in a well-organized way" },
+                { id: 403, en: "emphasis", ar: "تأكيد", def: "Special importance or value given" },
+                { id: 404, en: "encounter", ar: "يواجه", def: "Unexpectedly experience or meet" },
+                { id: 405, en: "entire", ar: "كامل", def: "With no part left out; whole" },
+                { id: 406, en: "essential", ar: "ضروري", def: "Absolutely necessary; extremely important" },
+                { id: 407, en: "estimate", ar: "يقدر", def: "Roughly calculate or judge" },
+                { id: 408, en: "evidence", ar: "دليل", def: "Facts indicating if something is true" },
+                { id: 409, en: "examine", ar: "يفحص", def: "Inspect someone or something in detail" },
+                { id: 410, en: "exist", ar: "يوجد", def: "Have objective reality or being" },
+                { id: 411, en: "expand", ar: "يتوسع", def: "Become or make larger or more extensive" },
+                { id: 412, en: "experiment", ar: "تجربة", def: "Procedure to make a discovery" },
+                { id: 413, en: "expert", ar: "خبير", def: "Person with comprehensive knowledge" },
+                { id: 414, en: "explore", ar: "يستكشف", def: "Travel in order to learn about it" },
+                { id: 415, en: "feature", ar: "ميزة", def: "Distinctive attribute or aspect" }
             ]
         };
 
@@ -151,7 +171,6 @@
             const triggerSync = async (finalScore, secondsSpent) => {
                 const u = userRef.current;
                 const c = configRef.current;
-                
                 if (!u || !u.name || !u.className) return;
 
                 setSyncing(true);
@@ -188,10 +207,8 @@
                 const name = e.target.studentName.value;
                 const className = e.target.className.value;
                 const userData = { name, className };
-                
                 userRef.current = userData;
                 configRef.current = gameConfig;
-                
                 setUser(userData);
                 startGame();
             };
@@ -268,7 +285,10 @@
                 return (
                     <div className="min-h-screen flex items-center justify-center bg-indigo-950 p-6">
                         <div className="bg-white rounded-[2rem] p-8 w-full max-w-sm shadow-2xl">
-                            <h1 className="text-3xl font-black text-center mb-6 italic uppercase tracking-tighter text-slate-800">Vocab Master</h1>
+                            <div className="text-center mb-6">
+                                <h1 className="text-3xl font-black italic uppercase tracking-tighter text-slate-800">Vocab Master</h1>
+                                <p className="text-xs font-bold text-indigo-500 uppercase tracking-[0.2em] mt-1">Fouad Nasir</p>
+                            </div>
                             <form onSubmit={handleLogin} className="space-y-4">
                                 <div className="space-y-1">
                                     <label className="text-[10px] font-black uppercase text-slate-400 ml-2">Student Identity</label>
@@ -340,7 +360,7 @@
                                     <div className={`card-inner ${show ? 'card-flipped' : ''}`}>
                                         <div className="card-front bg-white border-2 border-slate-100 text-slate-200 font-black text-4xl">?</div>
                                         <div className={`card-back border-2 ${matched.includes(card.id) ? 'bg-emerald-500 border-emerald-400 text-white shadow-lg shadow-emerald-100' : 'bg-white border-indigo-600 text-indigo-600 shadow-md'}`}>
-                                            <span className={`font-bold leading-tight ${card.isAr ? 'arabic text-2xl' : 'text-sm sm:text-base'}`}>{card.text}</span>
+                                            <span className={`font-bold leading-tight ${card.isAr ? 'arabic text-2xl' : 'text-xs sm:text-sm'}`}>{card.text}</span>
                                         </div>
                                     </div>
                                 </div>
