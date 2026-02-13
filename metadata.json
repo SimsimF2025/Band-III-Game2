@@ -1,0 +1,7 @@
+{
+  "name": "Band III Vocab Master",
+  "description": "An interactive memory matching card game based on the Band III Core vocabulary lists for students to master English-Arabic translations and definitions.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
