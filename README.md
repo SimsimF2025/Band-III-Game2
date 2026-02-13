@@ -42,7 +42,7 @@ If you are embedding this into a Google Site:
 
 ## 📝 Educational Content Credits
 -   **Vocabulary Content:** Based on Band III Core I.
--   **Curated by:** Fouad Nasir.
+-   **Curated by:** Dr. Maram Abu-Rayya.
 
 ---
 *Built with ❤️ for better learning.*
