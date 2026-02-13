@@ -1,10 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 
 export async function getVocabHint(word: string, pos: string): Promise<string> {
-  // Safe check for API key in browser environment
-  const apiKey = (typeof process !== 'undefined' && process.env) 
-    ? process.env.API_KEY 
-    : (window as any).process?.env?.API_KEY;
+  // Safe lookup for API_KEY
+  const apiKey = (window as any).process?.env?.API_KEY || (typeof process !== 'undefined' ? process.env.API_KEY : '');
   
   if (!apiKey) {
     console.warn("Gemini API Key is not configured. Hints are disabled.");
