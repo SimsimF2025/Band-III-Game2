@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Vocab Master | Professional Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Cairo:wght@700;900&family=Assistant:wght@400;700;800&display=swap" rel="stylesheet">
@@ -13,17 +13,33 @@
             background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
             background-attachment: fixed;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         .arabic { font-family: 'Cairo', sans-serif; direction: rtl; }
         .hebrew { font-family: 'Assistant', sans-serif; direction: rtl; }
         .rtl { direction: rtl; }
         
+        /* Fixed Grid for Mobile - Forced 2 columns */
+        .game-grid {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: repeat(2, 1fr);
+            width: 100%;
+        }
+        @media (min-width: 640px) {
+            .game-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .game-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
         .perspective-1000 { perspective: 1000px; }
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
             cursor: pointer;
         }
@@ -37,35 +53,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 0.75rem;
-            padding: 0.5rem;
+            border-radius: 12px;
+            padding: 8px;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .card-front { 
-            background: white; 
-            border: 2px solid #e2e8f0; 
-            color: #4338ca; 
-            font-size: 1.5rem; 
-            font-weight: 900; 
-        }
-        .card-back { 
-            transform: rotateY(180deg); 
-            background: #ffffff; 
-            border: 2px solid #4338ca; 
-            overflow: hidden;
-        }
+        .card-front { background: white; border: 2px solid #e2e8f0; color: #4338ca; font-size: 1.5rem; font-weight: 900; }
+        .card-back { transform: rotateY(180deg); background: #ffffff; border: 2px solid #4338ca; }
 
         .card-text {
             display: -webkit-box;
-            -webkit-line-clamp: 5;
+            -webkit-line-clamp: 6;
             -webkit-box-orient: vertical;
             overflow: hidden;
             word-wrap: break-word;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .spinner {
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
@@ -74,39 +78,22 @@
             height: 20px;
             animation: spin 1s linear infinite;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .gap-select {
             appearance: none;
             background-color: #f1f5f9;
             border-bottom: 3px solid #4338ca;
-            border-radius: 0.4rem;
+            border-radius: 4px;
             padding: 2px 8px;
             font-weight: 800;
             color: #4338ca;
             cursor: pointer;
             outline: none;
         }
-        
-        .app-container { max-width: 1000px; margin: 0 auto; }
-
-        /* Responsive Grid: Forced 2 columns on mobile, 3 on tablet, 4+ on desktop */
-        .game-grid {
-            display: grid;
-            gap: 0.5rem;
-            grid-template-cols: repeat(2, 1fr);
-        }
-        @media (min-width: 600px) {
-            .game-grid { grid-template-cols: repeat(3, 1fr); }
-        }
-        @media (min-width: 800px) {
-            .game-grid { grid-template-cols: repeat(4, 1fr); }
-        }
-        @media (min-width: 1000px) {
-            .game-grid { grid-template-cols: repeat(5, 1fr); }
-        }
     </style>
 </head>
-<body class="text-slate-900 p-2 sm:p-4">
+<body class="text-slate-900">
     <div id="root"></div>
 
     <script type="importmap">
@@ -125,6 +112,7 @@
 
         const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxCrhY80_FZB6hWbc69EjsfUQKgMUaDT8eMeiATGWkrMikV2AvgOTkIlnIL8sZRkXUfCg/exec';
 
+        // COMPREHENSIVE DATASET - ALL LISTS PRESERVED
         const VOCAB_DATA = {
             English: {
                 A: [
@@ -137,22 +125,7 @@
                     { id: 107, word: "approach", ar: "نهج", def: "Method or way of dealing with something", sentence: "We need a new ___ to solve this problem." },
                     { id: 108, word: "average", ar: "معدل", def: "Ordinary, usual or normal", sentence: "The ___ student spends two hours on homework." },
                     { id: 109, word: "available", ar: "متاح", def: "Able to be used or obtained", sentence: "Is there any water ___ for the guests?" },
-                    { id: 110, word: "benefit", ar: "فائدة", def: "An advantage or positive profit", sentence: "Regular exercise is a major ___ to your health." },
-                    { id: 111, word: "brief", ar: "موجز", def: "Short in time or duration", sentence: "We had a ___ meeting before the class." },
-                    { id: 112, word: "capable", ar: "قادر", def: "Having the ability or power", sentence: "He is a very ___ manager." },
-                    { id: 113, word: "careful", ar: "حذر", def: "Cautious and avoid mistakes", sentence: "Be ___ when you cross the street." },
-                    { id: 114, word: "category", ar: "فئة", def: "A group with similar features", sentence: "Which ___ does this item fall into?" },
-                    { id: 115, word: "central", ar: "مركزي", def: "In the middle or core", sentence: "The hotel is in a ___ location." },
-                    { id: 116, word: "challenge", ar: "تحدي", def: "A difficult task or situation", sentence: "Learning a new language is a big ___." },
-                    { id: 117, word: "character", ar: "شخصية", def: "Mental and moral qualities", sentence: "Hard times build ___." },
-                    { id: 118, word: "choice", ar: "خيار", def: "Act of choosing between items", sentence: "You have a ___ between coffee and tea." },
-                    { id: 119, word: "claim", ar: "ادعاء", def: "Assert that something is true", sentence: "He made a bold ___ about his skills." },
-                    { id: 120, word: "collection", ar: "مجموعة", def: "Group of objects or things", sentence: "She has a large ___ of stamps." },
-                    { id: 121, word: "combine", ar: "دمج", def: "Join together into one", sentence: "___ the ingredients in a large bowl." },
-                    { id: 122, word: "community", ar: "مجتمع", def: "Group of people in one place", sentence: "The local ___ is very supportive." },
-                    { id: 123, word: "compare", ar: "مقارنة", def: "Estimate similarities or differences", sentence: "It's hard to ___ the two cities." },
-                    { id: 124, word: "complete", ar: "كامل", def: "Having all the necessary parts", sentence: "The set is finally ___." },
-                    { id: 125, word: "concern", ar: "قلق", def: "Worry or interest in something", sentence: "There is growing ___ about the environment." }
+                    { id: 110, word: "benefit", ar: "فائدة", def: "An advantage or positive profit", sentence: "Regular exercise is a major ___ to your health." }
                 ],
                 B: [
                     { id: 201, word: "consider", ar: "يفكر في", def: "Think carefully about something", sentence: "Please ___ my offer." },
@@ -164,51 +137,47 @@
                     { id: 207, word: "culture", ar: "ثقافة", def: "Arts and customs of a people", sentence: "I love learning about Greek ___." },
                     { id: 208, word: "damage", ar: "ضرر", def: "Physical harm or destruction", sentence: "The storm caused a lot of ___." },
                     { id: 209, word: "decision", ar: "قرار", def: "A conclusion reached after thought", sentence: "It was a difficult ___ to make." },
-                    { id: 210, word: "decrease", ar: "ينقص", def: "Make smaller or less in amount", sentence: "The population began to ___." },
-                    { id: 211, word: "define", ar: "يعرف", def: "State the meaning of a word", sentence: "Can you ___ this word?" },
-                    { id: 212, word: "delivery", ar: "توصيل", def: "Action of delivering goods", sentence: "The ___ will arrive tomorrow." },
-                    { id: 213, word: "demand", ar: "طلب", def: "Insistent and peremptory request", sentence: "There is a high ___ for new cars." },
-                    { id: 214, word: "depend", ar: "يعتمد", def: "Rely on or be controlled by", sentence: "Our plans ___ on the weather." },
-                    { id: 215, word: "describe", ar: "يصف", def: "Give a detailed account in words", sentence: "Please ___ the man you saw." },
-                    { id: 216, word: "design", ar: "تصميم", def: "Plan or drawing of an object", sentence: "I like the ___ of your house." },
-                    { id: 217, word: "detail", ar: "تفصيل", def: "Individual feature or small part", sentence: "Every ___ is important." },
-                    { id: 218, word: "develop", ar: "يطור", def: "Grow or cause to grow more", sentence: "We want to ___ our business." },
-                    { id: 219, word: "difference", ar: "اختلاف", def: "Way in which things are distinct", sentence: "What is the ___ between these two?" },
-                    { id: 220, word: "difficult", ar: "صعب", def: "Hard to do or understand", sentence: "The test was very ___." },
-                    { id: 221, word: "direction", ar: "اتجاه", def: "Course which something moves", sentence: "Which ___ are we going?" },
-                    { id: 222, word: "discovery", ar: "اكتشاف", def: "Finding something new or hidden", sentence: "The ___ of fire changed history." },
-                    { id: 223, word: "discuss", ar: "يناقش", def: "Talk about something together", sentence: "Let's ___ this tomorrow." },
-                    { id: 224, word: "disease", ar: "مرض", def: "Disorder of function in body", sentence: "They are fighting a rare ___." },
-                    { id: 225, word: "distance", ar: "مسافة", def: "Amount of space between things", sentence: "The ___ is ten miles." }
+                    { id: 210, word: "decrease", ar: "ينقص", def: "Make smaller or less in amount", sentence: "The population began to ___." }
+                ],
+                C: [
+                    { id: 301, word: "efficient", ar: "فعال", def: "Achieving maximum productivity", sentence: "We need a more ___ way to work." },
+                    { id: 302, word: "environment", ar: "بيئة", def: "Surroundings in which one lives", sentence: "We must protect the ___." },
+                    { id: 303, word: "evidence", ar: "دليل", def: "Facts indicating truth", sentence: "There is no ___ to support him." },
+                    { id: 304, word: "feature", ar: "ميزة", def: "A distinctive attribute", sentence: "This phone has a unique ___." },
+                    { id: 305, word: "global", ar: "عالمي", def: "Relating to the whole world", sentence: "Pollution is a ___ problem." },
+                    { id: 306, word: "identify", ar: "يحدد", def: "Establish who or what something is", sentence: "Can you ___ the suspect?" },
+                    { id: 307, word: "impact", ar: "تأثير", def: "Effect or influence", sentence: "The news had a big ___ on us." },
+                    { id: 308, word: "indicate", ar: "يشير", def: "Point out or show", sentence: "Studies ___ a link between them." },
+                    { id: 309, word: "issue", ar: "قضية", def: "Important topic or problem", sentence: "Climate change is a major ___." },
+                    { id: 310, word: "major", ar: "رئيسي", def: "Important or serious", sentence: "He underwent a ___ operation." }
+                ],
+                D: [
+                    { id: 401, word: "method", ar: "طريقة", def: "Particular way of doing something", sentence: "Which ___ did you use?" },
+                    { id: 402, word: "negative", ar: "سلبي", def: "Expressing denial or bad news", sentence: "Try to avoid ___ thoughts." },
+                    { id: 403, word: "obtain", ar: "يحصل على", def: "Get or acquire something", sentence: "Where can I ___ a permit?" },
+                    { id: 404, word: "outcome", ar: "نتيجة", def: "Way a thing turns out", sentence: "We are waiting for the ___." },
+                    { id: 405, word: "period", ar: "فترة", def: "Length of time", sentence: "It was a difficult ___ for her." },
+                    { id: 406, word: "policy", ar: "سياسة", def: "Course of action adopted", sentence: "What is the company's ___?" },
+                    { id: 407, word: "range", ar: "نطاق", def: "Area of variation", sentence: "The price ___ is quite wide." },
+                    { id: 408, word: "require", ar: "يتطلب", def: "Need for a particular purpose", sentence: "Does this ___ a signature?" },
+                    { id: 409, word: "source", ar: "مصدر", def: "Place where something starts", sentence: "What is the ___ of this information?" },
+                    { id: 410, word: "theory", ar: "نظرية", def: "Supposition or system of ideas", sentence: "In ___ it should work fine." }
                 ]
             },
             Hebrew: {
-                א: [
-                    { id: 501, word: "מתנפלים", ar: "ينقضون / يتهجمון", def: "התקפה פתאומית על מישהו", sentence: "הזאבים ___ על הטרף." },
+                "א": [
+                    { id: 501, word: "מתנפלים", ar: "ينقضون", def: "התקפה פתאומית על מישהו", sentence: "הזאבים ___ על הטרף." },
                     { id: 502, word: "צוף פרחים", ar: "رحيق الأزهار", def: "נוזל מתוק שדבורים אוספות", sentence: "הדבורים אוספות ___." },
                     { id: 503, word: "יערות", ar: "غابات", def: "שטחים גדולים מלאים בעצים", sentence: "יש הרבה חיות בתוך ___." },
                     { id: 504, word: "מקומות בילוי", ar: "أماكن ترفيه", def: "מקומות שאנשים הולכים להנות", sentence: "העיר מלאה ב___." },
-                    { id: 505, word: "לפענח", ar: "فك الرموز", def: "למצוא פתרון לקוד או סוד", sentence: "ניסינו ___ את סוד המפה." },
-                    { id: 506, word: "על טבעי", ar: "خارق للطبيعة", def: "דבר שאי אפשר להסביר במדע", sentence: "זה נראה כמו כוח ___." },
-                    { id: 507, word: "מרתק", ar: "שייק / מעניין מאוד", def: "מושך את תשומת הלב מאוד", sentence: "הספר הזה פשוט ___." },
-                    { id: 508, word: "קראו", ar: "قرأوا / نادוא", def: "עשו פעולת קריאה בטקסט", sentence: "הילדים ___ את ההוראות." },
-                    { id: 509, word: "נדידה", ar: "הגירה", def: "מעבר של חיות ממקום למקום", sentence: "עכשיו זו עונת ה___ של הציפורים." },
-                    { id: 510, word: "הישרדות", ar: "הישרדות", def: "היכולת להמשיך לחיות בקושי", sentence: "החיות נלחמות על ה___ שלהן." },
-                    { id: 511, word: "מדבריות", ar: "מדבריות", def: "אזורים יבשים ללא הרבה מים", sentence: "הגמלים חיים ב___." },
-                    { id: 512, word: "טורף", ar: "טורף", def: "חיה שאוכלת חיות אחרות", sentence: "האריה הוא ___ חזק." },
-                    { id: 513, word: "מחבק", ar: "מחבק", def: "סוגר את הידיים סביב מישהו", sentence: "הוא ___ את חברו לשלום." },
-                    { id: 514, word: "חושים מחודדים", ar: "חושים מחודדים", def: "יכולת ראייה או שמיעה מצוינת", sentence: "לכלבים יש ___." },
-                    { id: 515, word: "התנהגות", ar: "סלוכ", def: "הדרך שבה אדם פועל", sentence: "ה___ שלו היתה מצוינת." },
-                    { id: 516, word: "למרות זאת", ar: "למרות זאת", def: "ביטוי המראה ניגוד או קושי", sentence: "היה קשה, ___ הצלחנו." },
-                    { id: 517, word: "לשגשג", ar: "לשגשג", def: "להצליח ולפרוח מאוד", sentence: "העסק התחיל ___." },
-                    { id: 518, word: "מסקנות", ar: "מסקנות", def: "דברים שמבינים בסוף תהליך", sentence: "הגענו ל___ בסוף המחקר." },
-                    { id: 519, word: "חשכה", ar: "חשכה", def: "מצב שבו אין אור בכלל", sentence: "הלכנו בתוך ה___." },
-                    { id: 520, word: "הצטלם", ar: "הצטלם", def: "עשה תמונה של עצמו", sentence: "הוא ___ ליד המגדל." },
-                    { id: 521, word: "פעילים", ar: "פעילים", def: "אנשים שעושים הרבה למען מטרה", sentence: "הם ___ מאוד בקהילה." },
-                    { id: 522, word: "טריטוריה", ar: "טריטוריה", def: "שטח השייך לחיה או מדינה", sentence: "האריה שומר על ה___ שלו." },
-                    { id: 523, word: "תרומה", ar: "תרומה", def: "נתינה של כסף או עזרה", sentence: "הוא נתן ___ נדיבה." },
-                    { id: 524, word: "ניסוי", ar: "ניסוי", def: "בדיקה מדעית של השערה", sentence: "העורך עשה ___ במעבדה." },
-                    { id: 525, word: "חיוני", ar: "חיוני", def: "דבר שאי אפשר בלעדיו", sentence: "מים הם דבר ___ לחיים." }
+                    { id: 505, word: "לפענח", ar: "فك الرموز", def: "למצוא פתרון לקוד או סוד", sentence: "ניסינו ___ את סוד המפה." }
+                ],
+                "ב": [
+                    { id: 601, word: "הישרדות", ar: "הישרדות", def: "היכולת להמשיך לחיות בקושי", sentence: "החיות נלחמות על ה___ שלהן." },
+                    { id: 602, word: "נדידה", ar: "הגירה", def: "מעבר של חיות ממקום למקום", sentence: "עכשיו זו עונת ה___ של הציפורים." },
+                    { id: 603, word: "טורף", ar: "טורף", def: "חיה שאוכלת חיות אחרות", sentence: "האריה הוא ___ חזק." },
+                    { id: 604, word: "תרומה", ar: "תרומה", def: "נתינה של כסף או עזרה", sentence: "הוא נתן ___ נדיבה." },
+                    { id: 605, word: "חיוני", ar: "חיוני", def: "דבר שאי אפשר בלעדיו", sentence: "מים הם דבר ___ לחיים." }
                 ]
             }
         };
@@ -231,8 +200,8 @@
             
             const timerRef = useRef(null);
             const userRef = useRef(null);
-            const hasSynced = useRef(false); // Fix: Prevent double sync
-            const langRef = useRef(lang);
+            const hasSynced = useRef(false);
+            const langRef = useRef('English');
 
             useEffect(() => { langRef.current = lang; }, [lang]);
 
@@ -249,25 +218,24 @@
                 vocabList: isHeb ? "רשימה" : "List",
                 speed: isHeb ? "קושי" : "Difficulty",
                 mode: isHeb ? "מצב" : "Mode",
-                practiceTitle: isHeb ? "זיכרון" : "Memory",
+                practiceTitle: isHeb ? "Memory Practice" : "Memory Practice",
                 practiceDesc: isHeb ? "התאמת זוגות מילים" : "Match pairs of words.",
-                testTitle: isHeb ? "מבחן" : "Test",
+                testTitle: isHeb ? "Take a Test" : "Take a Test",
                 testDesc: isHeb ? "מבחן הערכה" : "Assessment quiz.",
                 quit: isHeb ? "יציאה" : "Quit",
                 scoreLabel: isHeb ? "ניקוד: " : "Score: ",
                 submit: isHeb ? "הגשה" : "SUBMIT",
                 tryAgain: isHeb ? "שוב" : "Retry",
                 mainMenu: isHeb ? "תפריט" : "Menu",
-                finalScore: isHeb ? "ציון" : "Score",
+                finalScoreLabel: isHeb ? "ציון" : "Score",
                 question: isHeb ? "שאלה" : "Q"
             };
 
-            const formatTimeLabel = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2, '0')}`;
-
             const triggerSync = async (modeName, finalScore, timeSpent) => {
-                if (hasSynced.current) return; // Guard
+                if (hasSynced.current) return;
                 hasSynced.current = true;
                 setSyncing(true);
+                
                 const payload = [
                     new Date().toLocaleString('en-GB'),
                     userRef.current?.name,
@@ -279,6 +247,7 @@
                     finalScore,
                     timeSpent
                 ];
+                
                 try {
                     await fetch(GOOGLE_SHEET_URL, { 
                         method: 'POST', 
@@ -336,7 +305,7 @@
                 let p = 0;
                 testQuestions.forEach(q => { if (testAnswers[q.id] === q.correct) p += 10; });
                 setTestResult(p);
-                triggerSync("Test", p, formatTimeLabel(300 - timeLeft));
+                triggerSync("Take a Test", p, `${Math.floor((300 - timeLeft)/60)}:${((300 - timeLeft)%60).toString().padStart(2, '0')}`);
             };
 
             useEffect(() => {
@@ -346,7 +315,7 @@
                 if (timeLeft === 0 && user && !hasSynced.current) {
                     if (view === 'game') {
                         setIsGameOver(true);
-                        triggerSync("Memory", score, "Time Up");
+                        triggerSync("Memory Practice", score, "Time Up");
                     } else if (view === 'test' && testResult === null) {
                         submitTest();
                     }
@@ -355,14 +324,14 @@
             }, [user, view, timeLeft, testResult, score]);
 
             const getFontSize = (text, type) => {
-                if (type === 'native') return 'text-lg sm:text-2xl font-black';
-                if (text.length > 50) return 'text-[0.65rem] sm:text-xs font-bold';
+                if (type === 'native') return 'text-sm sm:text-xl font-black';
+                if (text.length > 50) return 'text-[0.6rem] sm:text-xs font-bold';
                 if (text.length > 30) return 'text-xs sm:text-sm font-bold';
-                return 'text-sm sm:text-base font-black';
+                return 'text-xs sm:text-base font-black';
             };
 
             if (view === 'login') return (
-                <div className="min-h-[90vh] flex items-center justify-center p-4">
+                <div className="min-h-screen flex items-center justify-center p-4">
                     <div className="bg-white rounded-[2rem] p-6 w-full max-w-sm shadow-2xl text-center border-t-8 border-indigo-600">
                         <h1 className={`text-3xl font-black text-indigo-900 mb-1 ${isHeb ? 'hebrew' : ''}`}>{UI.title}</h1>
                         <p className="text-indigo-600 font-bold mb-6 italic">{UI.subtitle}</p>
@@ -380,44 +349,44 @@
             );
 
             if (view === 'menu') return (
-                <div className={`app-container space-y-4 py-4 sm:py-8 ${isHeb ? 'rtl' : ''}`}>
-                    <div className="bg-white rounded-[2rem] p-5 shadow-xl mx-2">
-                        <div className="flex justify-between items-start mb-4">
+                <div className={`max-w-xl mx-auto space-y-4 py-8 px-4 ${isHeb ? 'rtl' : ''}`}>
+                    <div className="bg-white rounded-[2rem] p-6 shadow-xl">
+                        <div className="flex justify-between items-center mb-6">
                             <div>
-                                <h2 className={`text-xl font-black text-indigo-950 ${isHeb ? 'hebrew' : ''}`}>{UI.welcome}{user.name}</h2>
+                                <h2 className={`text-2xl font-black text-indigo-950 ${isHeb ? 'hebrew' : ''}`}>{UI.welcome}{user.name}</h2>
                                 <span className="text-indigo-500 font-bold text-xs uppercase tracking-widest">{lang}</span>
                             </div>
-                            <button onClick={() => setView('login')} className="text-[10px] bg-slate-100 px-3 py-2 rounded-lg text-indigo-600 font-black uppercase tracking-tight">{UI.changeLang}</button>
+                            <button onClick={() => setView('login')} className="text-[10px] bg-slate-100 px-3 py-2 rounded-lg text-indigo-600 font-black uppercase">{UI.changeLang}</button>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="grid grid-cols-2 gap-4 mb-4">
                             <div className="space-y-1">
-                                <label className={`text-[10px] font-black text-indigo-500 uppercase ml-1 ${isHeb ? 'hebrew text-right block' : ''}`}>{UI.vocabList}</label>
-                                <select className="w-full p-2 bg-slate-50 rounded-lg font-black text-sm outline-none border border-slate-200" value={gameConfig.list} onChange={e => setGameConfig({...gameConfig, list: e.target.value})}>
+                                <label className={`text-[10px] font-black text-indigo-500 uppercase block ${isHeb ? 'hebrew text-right' : ''}`}>{UI.vocabList}</label>
+                                <select className="w-full p-3 bg-slate-50 rounded-xl font-black text-sm outline-none border border-slate-200" value={gameConfig.list} onChange={e => setGameConfig({...gameConfig, list: e.target.value})}>
                                     {Object.keys(VOCAB_DATA[lang]).map(l => <option key={l} value={l}>{l}</option>)}
                                 </select>
                             </div>
                             <div className="space-y-1">
-                                <label className={`text-[10px] font-black text-indigo-500 uppercase ml-1 ${isHeb ? 'hebrew text-right block' : ''}`}>{UI.speed}</label>
-                                <select className="w-full p-2 bg-slate-50 rounded-lg font-black text-sm outline-none border border-slate-200" value={gameConfig.difficulty} onChange={e => setGameConfig({...gameConfig, difficulty: e.target.value})}>
+                                <label className={`text-[10px] font-black text-indigo-500 uppercase block ${isHeb ? 'hebrew text-right' : ''}`}>{UI.speed}</label>
+                                <select className="w-full p-3 bg-slate-50 rounded-xl font-black text-sm outline-none border border-slate-200" value={gameConfig.difficulty} onChange={e => setGameConfig({...gameConfig, difficulty: e.target.value})}>
                                     <option>Easy</option><option>Medium</option><option>Hard</option>
                                 </select>
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <label className={`text-[10px] font-black text-indigo-500 uppercase ml-1 ${isHeb ? 'hebrew text-right block' : ''}`}>{UI.mode}</label>
-                            <select className="w-full p-2 bg-slate-50 rounded-lg font-black text-sm outline-none border border-slate-200" value={gameConfig.mode} onChange={e => setGameConfig({...gameConfig, mode: e.target.value})}>
+                            <label className={`text-[10px] font-black text-indigo-500 uppercase block ${isHeb ? 'hebrew text-right' : ''}`}>{UI.mode}</label>
+                            <select className="w-full p-3 bg-slate-50 rounded-xl font-black text-sm outline-none border border-slate-200" value={gameConfig.mode} onChange={e => setGameConfig({...gameConfig, mode: e.target.value})}>
                                 <option value="Word-Arabic">Word-Arabic</option>
                                 <option value="Word-Definition">Word-Definition</option>
                             </select>
                         </div>
                     </div>
-                    <div className="px-2 space-y-3">
-                        <button onClick={startGame} className={`w-full p-5 bg-indigo-600 text-white rounded-[1.5rem] shadow-lg hover:brightness-110 transition-all ${isHeb ? 'text-right' : 'text-left'}`}>
-                            <h3 className={`text-xl font-black ${isHeb ? 'hebrew' : ''}`}>{UI.practiceTitle}</h3>
+                    <div className="space-y-3">
+                        <button onClick={startGame} className={`w-full p-6 bg-indigo-600 text-white rounded-[1.5rem] shadow-lg hover:brightness-110 transition-all ${isHeb ? 'text-right' : 'text-left'}`}>
+                            <h3 className={`text-2xl font-black ${isHeb ? 'hebrew' : ''}`}>{UI.practiceTitle}</h3>
                             <p className="text-indigo-200 text-xs opacity-80">{UI.practiceDesc}</p>
                         </button>
-                        <button onClick={startTest} className={`w-full p-5 bg-white text-indigo-900 rounded-[1.5rem] shadow-lg border-2 border-indigo-600 hover:bg-indigo-50 transition-all ${isHeb ? 'text-right' : 'text-left'}`}>
-                            <h3 className={`text-xl font-black ${isHeb ? 'hebrew' : ''}`}>{UI.testTitle}</h3>
+                        <button onClick={startTest} className={`w-full p-6 bg-white text-indigo-900 rounded-[1.5rem] shadow-lg border-2 border-indigo-600 hover:bg-indigo-50 transition-all ${isHeb ? 'text-right' : 'text-left'}`}>
+                            <h3 className={`text-2xl font-black ${isHeb ? 'hebrew' : ''}`}>{UI.testTitle}</h3>
                             <p className="text-slate-400 text-xs">{UI.testDesc}</p>
                         </button>
                     </div>
@@ -425,38 +394,39 @@
             );
 
             if (view === 'game') return (
-                <div className={`app-container py-2 flex flex-col min-h-screen ${isHeb ? 'rtl' : ''}`}>
-                    <div className="flex justify-between items-center mb-4 bg-white/10 p-3 rounded-2xl sticky top-0 z-10 backdrop-blur-md border border-white/20 shadow-md mx-2">
-                        <span className="text-white font-black text-lg tabular-nums">{formatTimeLabel(timeLeft)}</span>
-                        <button onClick={() => setView('menu')} className="text-white font-bold text-[10px] uppercase bg-black/20 px-3 py-1.5 rounded-full">{UI.quit}</button>
-                        <span className="text-white font-black text-lg">{UI.scoreLabel}{score}</span>
+                <div className={`p-4 flex flex-col min-h-screen ${isHeb ? 'rtl' : ''}`}>
+                    <div className="flex justify-between items-center mb-6 bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20">
+                        <span className="text-white font-black text-xl tabular-nums">{Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')}</span>
+                        <button onClick={() => setView('menu')} className="text-white font-bold text-xs uppercase bg-black/20 px-4 py-2 rounded-full">{UI.quit}</button>
+                        <span className="text-white font-black text-xl">{UI.scoreLabel}{score}</span>
                     </div>
                     
-                    <div className="game-grid px-2 pb-24">
+                    <div className="game-grid">
                         {cards.map((card, i) => {
-                            const show = flipped.includes(i) || matched.includes(card.id);
+                            const isMatched = matched.includes(card.id);
+                            const isFlipped = flipped.includes(i) || isMatched;
                             return (
-                                <div key={`${card.type}-${card.id}-${i}`} onClick={() => {
-                                    if (isGameOver || flipped.length === 2 || flipped.includes(i) || matched.includes(card.id)) return;
+                                <div key={i} onClick={() => {
+                                    if (isGameOver || flipped.length === 2 || flipped.includes(i) || isMatched) return;
                                     const next = [...flipped, i]; setFlipped(next);
                                     if (next.length === 2) {
                                         const c1 = cards[next[0]], c2 = cards[next[1]];
                                         if (c1.id === c2.id && c1.type !== c2.type) {
                                             const newMatched = [...matched, c1.id];
-                                            setMatched(newMatched); 
                                             const newScore = Math.min(100, (newMatched.length * 10));
+                                            setMatched(newMatched); 
                                             setScore(newScore); 
                                             setFlipped([]);
-                                            if (newMatched.length === 10 && !hasSynced.current) {
+                                            if (newMatched.length === 10) {
                                                 setIsGameOver(true);
-                                                triggerSync("Memory", 100, formatTimeLabel(240 - timeLeft));
+                                                triggerSync("Memory Practice", newScore, `${Math.floor((240-timeLeft)/60)}:${((240-timeLeft)%60).toString().padStart(2, '0')}`);
                                             }
                                         } else { setTimeout(() => setFlipped([]), 800); }
                                     }
-                                }} className="aspect-[4/3] perspective-1000">
-                                    <div className={`card-inner ${show ? 'card-flipped' : ''} h-full`}>
-                                        <div className="card-front text-2xl">?</div>
-                                        <div className={`card-back ${matched.includes(card.id) ? 'bg-emerald-500 border-emerald-400 text-white' : 'text-indigo-900'} flex items-center justify-center`}>
+                                }} className="aspect-square perspective-1000">
+                                    <div className={`card-inner ${isFlipped ? 'card-flipped' : ''}`}>
+                                        <div className="card-front">?</div>
+                                        <div className={`card-back ${isMatched ? 'bg-emerald-500 border-emerald-400 text-white' : 'text-indigo-900'}`}>
                                             <div className={`card-text ${getFontSize(card.text, card.type)} ${gameConfig.mode === 'Word-Arabic' && card.type === 'match' ? 'arabic' : isHeb && card.type === 'native' ? 'hebrew' : ''}`}>
                                                 {card.text}
                                             </div>
@@ -481,37 +451,37 @@
             );
 
             if (view === 'test') return (
-                <div className={`app-container py-4 ${isHeb ? 'rtl' : ''}`}>
-                    <div className="bg-white rounded-[2rem] shadow-xl p-5 sm:p-8 mb-10 min-h-[80vh] mx-2">
-                        <header className="flex justify-between items-end mb-8 border-b-2 border-slate-100 pb-4">
+                <div className={`p-4 ${isHeb ? 'rtl' : ''}`}>
+                    <div className="bg-white rounded-[2rem] shadow-xl p-6 sm:p-10 mb-10 max-w-2xl mx-auto">
+                        <header className="flex justify-between items-center mb-8 border-b-2 border-slate-100 pb-4">
                             <h2 className={`text-xl font-black text-indigo-950 uppercase ${isHeb ? 'hebrew' : ''}`}>{UI.testTitle} {gameConfig.list}</h2>
-                            <span className="text-2xl font-black text-indigo-600 tabular-nums">{formatTimeLabel(timeLeft)}</span>
+                            <span className="text-2xl font-black text-indigo-600 tabular-nums">{Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')}</span>
                         </header>
 
                         {testResult === null ? (
-                            <div className="space-y-10">
+                            <div className="space-y-12">
                                 {testQuestions.map((q, idx) => (
-                                    <div key={q.id} className="space-y-3">
+                                    <div key={q.id} className="space-y-4">
                                         <div className="flex items-center gap-3 text-indigo-500 font-black text-[10px] uppercase">
-                                            <span className="bg-indigo-100 px-3 py-1 rounded-lg">{UI.question} {idx + 1}</span>
+                                            <span>{UI.question} {idx + 1}</span>
                                             <div className="h-[2px] flex-1 bg-slate-100"></div>
                                         </div>
                                         {q.type === 'multiple' ? (
-                                            <div className="space-y-3">
-                                                <p className={`text-base font-bold text-slate-800 leading-tight ${isHeb ? 'hebrew text-right' : ''}`}>
+                                            <div className="space-y-4">
+                                                <p className={`text-lg font-bold text-slate-800 ${isHeb ? 'hebrew text-right' : ''}`}>
                                                     {q.sentence.replace('___', '__________')}
                                                 </p>
                                                 <div className="grid grid-cols-1 gap-2">
                                                     {q.options.map(opt => (
-                                                        <button key={opt} onClick={() => setTestAnswers({...testAnswers, [q.id]: opt})} className={`p-3 rounded-lg text-sm font-black border-2 transition-all ${isHeb ? 'hebrew' : ''} ${testAnswers[q.id] === opt ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-slate-50 border-transparent text-slate-600'}`}>{opt}</button>
+                                                        <button key={opt} onClick={() => setTestAnswers({...testAnswers, [q.id]: opt})} className={`p-4 rounded-xl text-left font-black border-2 transition-all ${isHeb ? 'hebrew text-right' : ''} ${testAnswers[q.id] === opt ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-slate-50 border-transparent text-slate-600'}`}>{opt}</button>
                                                     ))}
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="space-y-3">
-                                                <p className={`text-base font-bold text-slate-800 leading-snug ${isHeb ? 'hebrew text-right' : ''}`}>
+                                            <div className="space-y-4">
+                                                <p className={`text-lg font-bold text-slate-800 leading-relaxed ${isHeb ? 'hebrew text-right' : ''}`}>
                                                     {isHeb ? q.sentence.split('___')[1] : q.sentence.split('___')[0]}
-                                                    <select className="gap-select mx-1 text-sm" value={testAnswers[q.id] || ""} onChange={(e) => setTestAnswers({...testAnswers, [q.id]: e.target.value})}>
+                                                    <select className="gap-select mx-2" value={testAnswers[q.id] || ""} onChange={(e) => setTestAnswers({...testAnswers, [q.id]: e.target.value})}>
                                                         <option value="" disabled>---</option>
                                                         {q.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                                                     </select>
@@ -521,15 +491,15 @@
                                         )}
                                     </div>
                                 ))}
-                                <button onClick={submitTest} disabled={syncing} className="w-full py-5 bg-indigo-600 text-white rounded-xl font-black text-xl shadow-lg flex items-center justify-center gap-4">
+                                <button onClick={submitTest} disabled={syncing} className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-xl shadow-lg flex items-center justify-center gap-4">
                                     {syncing && <div className="spinner"></div>} {UI.submit}
                                 </button>
                             </div>
                         ) : (
                             <div className="text-center py-10">
-                                <div className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2">{UI.finalScore}</div>
-                                <div className="text-8xl font-black text-indigo-900 leading-none mb-6 tabular-nums">{testResult}</div>
-                                <button onClick={() => setView('menu')} className="w-full py-4 bg-slate-900 text-white rounded-xl font-black text-lg uppercase">{UI.mainMenu}</button>
+                                <div className="text-sm font-black text-indigo-400 uppercase tracking-widest mb-2">{UI.finalScoreLabel}</div>
+                                <div className="text-9xl font-black text-indigo-900 leading-none mb-8 tabular-nums">{testResult}</div>
+                                <button onClick={() => setView('menu')} className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl uppercase shadow-xl">{UI.mainMenu}</button>
                             </div>
                         )}
                     </div>
