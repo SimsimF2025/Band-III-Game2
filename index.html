@@ -20,15 +20,14 @@
         .hebrew { font-family: 'Assistant', sans-serif; direction: rtl; }
         .rtl { direction: rtl; }
         
-        /* Fixed Grid for Mobile - Forced 2 columns */
         .game-grid {
             display: grid;
-            gap: 8px;
+            gap: 10px;
             grid-template-columns: repeat(2, 1fr);
             width: 100%;
         }
         @media (min-width: 640px) {
-            .game-grid { grid-template-columns: repeat(3, 1fr); }
+            .game-grid { grid-template-columns: repeat(4, 1fr); }
         }
         @media (min-width: 1024px) {
             .game-grid { grid-template-columns: repeat(5, 1fr); }
@@ -112,7 +111,6 @@
 
         const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxCrhY80_FZB6hWbc69EjsfUQKgMUaDT8eMeiATGWkrMikV2AvgOTkIlnIL8sZRkXUfCg/exec';
 
-        // COMPREHENSIVE DATASET - ALL LISTS PRESERVED
         const VOCAB_DATA = {
             English: {
                 A: [
@@ -123,7 +121,7 @@
                     { id: 105, word: "analysis", ar: "تحليل", def: "Examining something carefully", sentence: "The chemical ___ showed high levels of salt." },
                     { id: 106, word: "appear", ar: "يظهر", def: "To start to be seen", sentence: "The sun will ___ from behind the clouds soon." },
                     { id: 107, word: "approach", ar: "نهج", def: "Method or way of dealing with something", sentence: "We need a new ___ to solve this problem." },
-                    { id: 108, word: "average", ar: "معدل", def: "Ordinary, usual or normal", sentence: "The ___ student spends two hours on homework." },
+                    { id: 108, word: "average", ar: "معدל", def: "Ordinary, usual or normal", sentence: "The ___ student spends two hours on homework." },
                     { id: 109, word: "available", ar: "متاح", def: "Able to be used or obtained", sentence: "Is there any water ___ for the guests?" },
                     { id: 110, word: "benefit", ar: "فائدة", def: "An advantage or positive profit", sentence: "Regular exercise is a major ___ to your health." }
                 ],
@@ -158,9 +156,9 @@
                     { id: 404, word: "outcome", ar: "نتيجة", def: "Way a thing turns out", sentence: "We are waiting for the ___." },
                     { id: 405, word: "period", ar: "فترة", def: "Length of time", sentence: "It was a difficult ___ for her." },
                     { id: 406, word: "policy", ar: "سياسة", def: "Course of action adopted", sentence: "What is the company's ___?" },
-                    { id: 407, word: "range", ar: "نطاق", def: "Area of variation", sentence: "The price ___ is quite wide." },
+                    { id: 407, word: "range", ar: "نטاق", def: "Area of variation", sentence: "The price ___ is quite wide." },
                     { id: 408, word: "require", ar: "يتطلب", def: "Need for a particular purpose", sentence: "Does this ___ a signature?" },
-                    { id: 409, word: "source", ar: "مصدر", def: "Place where something starts", sentence: "What is the ___ of this information?" },
+                    { id: 409, word: "source", ar: "مصדר", def: "Place where something starts", sentence: "What is the ___ of this information?" },
                     { id: 410, word: "theory", ar: "نظرية", def: "Supposition or system of ideas", sentence: "In ___ it should work fine." }
                 ]
             },
@@ -173,11 +171,25 @@
                     { id: 505, word: "לפענח", ar: "فك الرموز", def: "למצוא פתרון לקוד או סוד", sentence: "ניסינו ___ את סוד המפה." }
                 ],
                 "ב": [
-                    { id: 601, word: "הישרדות", ar: "הישרדות", def: "היכולת להמשיך לחיות בקושי", sentence: "החיות נלחמות על ה___ שלהן." },
-                    { id: 602, word: "נדידה", ar: "הגירה", def: "מעבר של חיות ממקום למקום", sentence: "עכשיו זו עונת ה___ של הציפורים." },
-                    { id: 603, word: "טורף", ar: "טורף", def: "חיה שאוכלת חיות אחרות", sentence: "האריה הוא ___ חזק." },
-                    { id: 604, word: "תרומה", ar: "תרומה", def: "נתינה של כסף או עזרה", sentence: "הוא נתן ___ נדיבה." },
-                    { id: 605, word: "חיוני", ar: "חיוני", def: "דבר שאי אפשר בלעדיו", sentence: "מים הם דבר ___ לחיים." }
+                    { id: 601, word: "הישרדות", ar: "بقاء", def: "היכולת להמשיך לחיות בקושי", sentence: "החיות נלחמות על ה___ שלהן." },
+                    { id: 602, word: "נדידה", ar: "هجرة", def: "מעבר של חיות ממקום למקום", sentence: "עכשיו זו עונת ה___ של הציפורים." },
+                    { id: 603, word: "טורף", ar: "مفترס", def: "חיה שאוכלת חיות אחרות", sentence: "האריה הוא ___ חזק." },
+                    { id: 604, word: "תרומה", ar: "تبرع", def: "נתינה של כסף או עזרה", sentence: "הוא נתן ___ נדיבה." },
+                    { id: 605, word: "חיוני", ar: "ضرורי", def: "דבר שאי אפשר בלעדיו", sentence: "מים הם דבר ___ לחיים." }
+                ],
+                "ג": [
+                    { id: 701, word: "מנהיג", ar: "قائد", def: "אדם שמוביל קבוצה", sentence: "ה___ דיבר בפני כולם." },
+                    { id: 702, word: "מטרה", ar: "هدف", def: "משהו שמנסים להשיג", sentence: "ה___ שלנו היא לנצח." },
+                    { id: 703, word: "אחריות", ar: "مسؤولية", def: "חובה לעשות משהו", sentence: "יש לו ___ רבה בתפקיד." },
+                    { id: 704, word: "פתרון", ar: "حل", def: "תשובה לבעיה", sentence: "מצאנו ___ לבעיה הקשה." },
+                    { id: 705, word: "שיפור", ar: "تحسين", def: "שינוי לטובה", sentence: "יש ___ בציונים שלו." }
+                ],
+                "ד": [
+                    { id: 801, word: "השראה", ar: "إلهام", def: "משהו שנותן רעיון חדש", sentence: "הוא קיבל ___ מהטבע." },
+                    { id: 802, word: "הצלחה", ar: "نجاح", def: "השגת תוצאה טובה", sentence: "הוא הגיע ל___ גדולה." },
+                    { id: 803, word: "שאיפה", ar: "طמוח", def: "רצון חזק להשיג משהו", sentence: "ה___ שלו היא להיות רופא." },
+                    { id: 804, word: "יכולת", ar: "قدرة", def: "הכוח לעשות משהו", sentence: "יש לו ___ ללמוד מהר." },
+                    { id: 805, word: "ניסיון", ar: "خبرة", def: "ידע שנרכש לאורך זמן", sentence: "יש לה הרבה ___ בעבודה." }
                 ]
             }
         };
@@ -216,19 +228,24 @@
                 welcome: isHeb ? "שלום, " : "Hello, ",
                 changeLang: isHeb ? "שפה" : "Lang",
                 vocabList: isHeb ? "רשימה" : "List",
-                speed: isHeb ? "קושי" : "Difficulty",
-                mode: isHeb ? "מצב" : "Mode",
-                practiceTitle: isHeb ? "Memory Practice" : "Memory Practice",
-                practiceDesc: isHeb ? "התאמת זוגות מילים" : "Match pairs of words.",
-                testTitle: isHeb ? "Take a Test" : "Take a Test",
-                testDesc: isHeb ? "מבחן הערכה" : "Assessment quiz.",
+                speed: isHeb ? "רמת קושי" : "Difficulty",
+                mode: isHeb ? "מצב משחק" : "Mode",
+                practiceTitle: isHeb ? "אימון זיכרון" : "Memory Practice",
+                practiceDesc: isHeb ? "התאמת זוגות מילים לשיפור אוצר המילים." : "Match pairs of words to master vocabulary.",
+                testTitle: isHeb ? "מבחן הערכה" : "Take a Test",
+                testDesc: isHeb ? "מבחן לבדיקת הידע שלך ברשימה שנבחרה." : "Assessment quiz to verify your knowledge.",
                 quit: isHeb ? "יציאה" : "Quit",
                 scoreLabel: isHeb ? "ניקוד: " : "Score: ",
                 submit: isHeb ? "הגשה" : "SUBMIT",
-                tryAgain: isHeb ? "שוב" : "Retry",
-                mainMenu: isHeb ? "תפריט" : "Menu",
-                finalScoreLabel: isHeb ? "ציון" : "Score",
-                question: isHeb ? "שאלה" : "Q"
+                tryAgain: isHeb ? "נסה שוב" : "Retry",
+                mainMenu: isHeb ? "תפריט ראשי" : "Menu",
+                finalScoreLabel: isHeb ? "ציון סופי" : "Score",
+                question: isHeb ? "שאלה" : "Q",
+                difficultyOptions: isHeb ? ["קל", "בינוני", "קשה"] : ["Easy", "Medium", "Hard"],
+                modeOptions: isHeb ? 
+                    [{ v: "Word-Arabic", l: "מילה-ערבית" }, { v: "Word-Definition", l: "מילה-הגדרה" }] : 
+                    [{ v: "Word-Arabic", l: "Word-Arabic" }, { v: "Word-Definition", l: "Word-Definition" }],
+                complete: isHeb ? "הושלם!" : "COMPLETE!"
             };
 
             const triggerSync = async (modeName, finalScore, timeSpent) => {
@@ -236,15 +253,18 @@
                 hasSynced.current = true;
                 setSyncing(true);
                 
+                // Ensure score is explicitly stringified to avoid 0.00 or null issues
+                const scoreValue = finalScore !== undefined && finalScore !== null ? finalScore.toString() : "0";
+
                 const payload = [
                     new Date().toLocaleString('en-GB'),
-                    userRef.current?.name,
-                    userRef.current?.className,
+                    userRef.current?.name || "Unknown",
+                    userRef.current?.className || "Unknown",
                     langRef.current,
                     modeName,
                     gameConfig.list,
                     gameConfig.difficulty,
-                    finalScore,
+                    scoreValue,
                     timeSpent
                 ];
                 
@@ -270,7 +290,7 @@
 
             const startGame = () => {
                 hasSynced.current = false;
-                const list = VOCAB_DATA[lang][gameConfig.list] || VOCAB_DATA[lang]['A'] || VOCAB_DATA[lang]['א'];
+                const list = VOCAB_DATA[lang][gameConfig.list];
                 setTimeLeft(240); 
                 setScore(0); setMatched([]); setFlipped([]); setIsGameOver(false); setView('game');
                 
@@ -287,11 +307,11 @@
             const startTest = () => {
                 hasSynced.current = false;
                 setTestResult(null); setTestAnswers({}); setTimeLeft(300);
-                const fullList = VOCAB_DATA[lang][gameConfig.list] || VOCAB_DATA[lang]['A'] || VOCAB_DATA[lang]['א'];
+                const fullList = VOCAB_DATA[lang][gameConfig.list];
                 const shuffled = [...fullList].sort(() => 0.5 - Math.random());
-                const questions = shuffled.slice(0, 10).map((item, index) => ({
+                const questions = shuffled.map((item, index) => ({
                     id: item.id,
-                    type: index < 5 ? 'multiple' : 'dropdown',
+                    type: index < (fullList.length / 2) ? 'multiple' : 'dropdown',
                     correct: item.word,
                     sentence: item.sentence,
                     options: [item.word, ...fullList.filter(x => x.id !== item.id).sort(() => 0.5 - Math.random()).slice(0, 3).map(x => x.word)].sort(() => 0.5 - Math.random())
@@ -302,10 +322,12 @@
 
             const submitTest = () => {
                 if (hasSynced.current) return;
-                let p = 0;
-                testQuestions.forEach(q => { if (testAnswers[q.id] === q.correct) p += 10; });
-                setTestResult(p);
-                triggerSync("Take a Test", p, `${Math.floor((300 - timeLeft)/60)}:${((300 - timeLeft)%60).toString().padStart(2, '0')}`);
+                let correctCount = 0;
+                testQuestions.forEach(q => { if (testAnswers[q.id] === q.correct) correctCount++; });
+                const finalP = Math.round((correctCount / testQuestions.length) * 100);
+                setTestResult(finalP);
+                const timeStr = `${Math.floor((300 - timeLeft)/60)}:${((300 - timeLeft)%60).toString().padStart(2, '0')}`;
+                triggerSync(isHeb ? "מבחן הערכה" : "Take a Test", finalP, timeStr);
             };
 
             useEffect(() => {
@@ -315,13 +337,17 @@
                 if (timeLeft === 0 && user && !hasSynced.current) {
                     if (view === 'game') {
                         setIsGameOver(true);
-                        triggerSync("Memory Practice", score, "Time Up");
+                        // Using functional update to ensure we have latest score when syncing
+                        setScore(currentScore => {
+                            triggerSync(isHeb ? "אימון זיכרון" : "Memory Practice", currentScore, "Time Up");
+                            return currentScore;
+                        });
                     } else if (view === 'test' && testResult === null) {
                         submitTest();
                     }
                 }
                 return () => clearInterval(timerRef.current);
-            }, [user, view, timeLeft, testResult, score]);
+            }, [user, view, timeLeft, testResult]);
 
             const getFontSize = (text, type) => {
                 if (type === 'native') return 'text-sm sm:text-xl font-black';
@@ -352,7 +378,7 @@
                 <div className={`max-w-xl mx-auto space-y-4 py-8 px-4 ${isHeb ? 'rtl' : ''}`}>
                     <div className="bg-white rounded-[2rem] p-6 shadow-xl">
                         <div className="flex justify-between items-center mb-6">
-                            <div>
+                            <div className={`${isHeb ? 'text-right' : 'text-left'}`}>
                                 <h2 className={`text-2xl font-black text-indigo-950 ${isHeb ? 'hebrew' : ''}`}>{UI.welcome}{user.name}</h2>
                                 <span className="text-indigo-500 font-bold text-xs uppercase tracking-widest">{lang}</span>
                             </div>
@@ -368,26 +394,27 @@
                             <div className="space-y-1">
                                 <label className={`text-[10px] font-black text-indigo-500 uppercase block ${isHeb ? 'hebrew text-right' : ''}`}>{UI.speed}</label>
                                 <select className="w-full p-3 bg-slate-50 rounded-xl font-black text-sm outline-none border border-slate-200" value={gameConfig.difficulty} onChange={e => setGameConfig({...gameConfig, difficulty: e.target.value})}>
-                                    <option>Easy</option><option>Medium</option><option>Hard</option>
+                                    {UI.difficultyOptions.map((opt, i) => (
+                                        <option key={i} value={["Easy", "Medium", "Hard"][i]}>{opt}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
                         <div className="space-y-1">
                             <label className={`text-[10px] font-black text-indigo-500 uppercase block ${isHeb ? 'hebrew text-right' : ''}`}>{UI.mode}</label>
                             <select className="w-full p-3 bg-slate-50 rounded-xl font-black text-sm outline-none border border-slate-200" value={gameConfig.mode} onChange={e => setGameConfig({...gameConfig, mode: e.target.value})}>
-                                <option value="Word-Arabic">Word-Arabic</option>
-                                <option value="Word-Definition">Word-Definition</option>
+                                {UI.modeOptions.map(m => <option key={m.v} value={m.v}>{m.l}</option>)}
                             </select>
                         </div>
                     </div>
                     <div className="space-y-3">
                         <button onClick={startGame} className={`w-full p-6 bg-indigo-600 text-white rounded-[1.5rem] shadow-lg hover:brightness-110 transition-all ${isHeb ? 'text-right' : 'text-left'}`}>
                             <h3 className={`text-2xl font-black ${isHeb ? 'hebrew' : ''}`}>{UI.practiceTitle}</h3>
-                            <p className="text-indigo-200 text-xs opacity-80">{UI.practiceDesc}</p>
+                            <p className={`text-indigo-200 text-xs opacity-80 ${isHeb ? 'hebrew' : ''}`}>{UI.practiceDesc}</p>
                         </button>
                         <button onClick={startTest} className={`w-full p-6 bg-white text-indigo-900 rounded-[1.5rem] shadow-lg border-2 border-indigo-600 hover:bg-indigo-50 transition-all ${isHeb ? 'text-right' : 'text-left'}`}>
                             <h3 className={`text-2xl font-black ${isHeb ? 'hebrew' : ''}`}>{UI.testTitle}</h3>
-                            <p className="text-slate-400 text-xs">{UI.testDesc}</p>
+                            <p className={`text-slate-400 text-xs ${isHeb ? 'hebrew' : ''}`}>{UI.testDesc}</p>
                         </button>
                     </div>
                 </div>
@@ -397,8 +424,8 @@
                 <div className={`p-4 flex flex-col min-h-screen ${isHeb ? 'rtl' : ''}`}>
                     <div className="flex justify-between items-center mb-6 bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20">
                         <span className="text-white font-black text-xl tabular-nums">{Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')}</span>
-                        <button onClick={() => setView('menu')} className="text-white font-bold text-xs uppercase bg-black/20 px-4 py-2 rounded-full">{UI.quit}</button>
-                        <span className="text-white font-black text-xl">{UI.scoreLabel}{score}</span>
+                        <button onClick={() => setView('menu')} className={`text-white font-bold text-xs uppercase bg-black/20 px-4 py-2 rounded-full ${isHeb ? 'hebrew' : ''}`}>{UI.quit}</button>
+                        <span className={`text-white font-black text-xl ${isHeb ? 'hebrew' : ''}`}>{UI.scoreLabel}{score}</span>
                     </div>
                     
                     <div className="game-grid">
@@ -413,13 +440,13 @@
                                         const c1 = cards[next[0]], c2 = cards[next[1]];
                                         if (c1.id === c2.id && c1.type !== c2.type) {
                                             const newMatched = [...matched, c1.id];
-                                            const newScore = Math.min(100, (newMatched.length * 10));
+                                            const newScore = Math.min(100, Math.round((newMatched.length / (cards.length / 2)) * 100));
                                             setMatched(newMatched); 
                                             setScore(newScore); 
                                             setFlipped([]);
-                                            if (newMatched.length === 10) {
+                                            if (newMatched.length === (cards.length / 2)) {
                                                 setIsGameOver(true);
-                                                triggerSync("Memory Practice", newScore, `${Math.floor((240-timeLeft)/60)}:${((240-timeLeft)%60).toString().padStart(2, '0')}`);
+                                                triggerSync(isHeb ? "אימון זיכרון" : "Memory Practice", newScore, `${Math.floor((240-timeLeft)/60)}:${((240-timeLeft)%60).toString().padStart(2, '0')}`);
                                             }
                                         } else { setTimeout(() => setFlipped([]), 800); }
                                     }
@@ -440,10 +467,10 @@
                     {isGameOver && (
                         <div className="fixed inset-0 bg-indigo-950/90 flex items-center justify-center p-6 z-50">
                             <div className="bg-white rounded-[2rem] p-8 text-center w-full max-w-sm shadow-2xl">
-                                <h2 className="text-3xl font-black text-indigo-900 mb-2">COMPLETE!</h2>
-                                <div className="text-6xl font-black text-indigo-600 mb-6">{score}</div>
-                                <button onClick={startGame} className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold mb-3 text-lg">{UI.tryAgain}</button>
-                                <button onClick={() => setView('menu')} className="text-slate-400 font-bold uppercase text-xs">{UI.mainMenu}</button>
+                                <h2 className={`text-3xl font-black text-indigo-900 mb-2 ${isHeb ? 'hebrew' : ''}`}>{UI.complete}</h2>
+                                <div className="text-6xl font-black text-indigo-600 mb-6 tabular-nums">{score}</div>
+                                <button onClick={startGame} className={`w-full py-4 bg-indigo-600 text-white rounded-xl font-bold mb-3 text-lg ${isHeb ? 'hebrew' : ''}`}>{UI.tryAgain}</button>
+                                <button onClick={() => setView('menu')} className={`text-slate-400 font-bold uppercase text-xs ${isHeb ? 'hebrew' : ''}`}>{UI.mainMenu}</button>
                             </div>
                         </div>
                     )}
@@ -463,7 +490,7 @@
                                 {testQuestions.map((q, idx) => (
                                     <div key={q.id} className="space-y-4">
                                         <div className="flex items-center gap-3 text-indigo-500 font-black text-[10px] uppercase">
-                                            <span>{UI.question} {idx + 1}</span>
+                                            <span className={isHeb ? 'hebrew' : ''}>{UI.question} {idx + 1}</span>
                                             <div className="h-[2px] flex-1 bg-slate-100"></div>
                                         </div>
                                         {q.type === 'multiple' ? (
@@ -491,15 +518,15 @@
                                         )}
                                     </div>
                                 ))}
-                                <button onClick={submitTest} disabled={syncing} className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-xl shadow-lg flex items-center justify-center gap-4">
+                                <button onClick={submitTest} disabled={syncing} className={`w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-xl shadow-lg flex items-center justify-center gap-4 ${isHeb ? 'hebrew' : ''}`}>
                                     {syncing && <div className="spinner"></div>} {UI.submit}
                                 </button>
                             </div>
                         ) : (
                             <div className="text-center py-10">
-                                <div className="text-sm font-black text-indigo-400 uppercase tracking-widest mb-2">{UI.finalScoreLabel}</div>
+                                <div className={`text-sm font-black text-indigo-400 uppercase tracking-widest mb-2 ${isHeb ? 'hebrew' : ''}`}>{UI.finalScoreLabel}</div>
                                 <div className="text-9xl font-black text-indigo-900 leading-none mb-8 tabular-nums">{testResult}</div>
-                                <button onClick={() => setView('menu')} className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl uppercase shadow-xl">{UI.mainMenu}</button>
+                                <button onClick={() => setView('menu')} className={`w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl uppercase shadow-xl ${isHeb ? 'hebrew' : ''}`}>{UI.mainMenu}</button>
                             </div>
                         )}
                     </div>
